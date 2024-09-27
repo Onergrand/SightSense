@@ -1,6 +1,6 @@
 import {StyleSheet} from "react-native";
 
-const authStyles = StyleSheet.create({
+const createAuthStyles = (fontSize) => StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'flex-start',
@@ -41,17 +41,17 @@ const authStyles = StyleSheet.create({
         marginRight: '3%',
     },
     buttonTextResize: {
-      fontSize: 36,
+      fontSize: fontSize.buttonResize || 36,
       fontWeight: 'bold',
       fontFamily: 'MontserratBold',
     },
     buttonText: {
-        fontSize: 18,
+        fontSize: fontSize.button || 18,
         fontWeight: 'bold',
     },
     title: {
         fontFamily: 'MontserratBold',
-        fontSize: 48,
+        fontSize: fontSize.title || 48,
         fontWeight: 'bold',
         textAlign: 'center',
 
@@ -69,14 +69,14 @@ const authStyles = StyleSheet.create({
 
         fontFamily: 'MontserratSemiBold',
         fontWeight: 'semibold',
-        fontSize: 24,
+        fontSize: fontSize.main || 24,
         color: '#000',
     },
     loginButton: {
         width: '40%',
         height: '8%',
         color: 'white',
-        fontSize: 24,
+        fontSize: fontSize.main || 24,
 
         backgroundColor: '#7B00E0',
         borderRadius: 20,
@@ -84,7 +84,7 @@ const authStyles = StyleSheet.create({
     loginButtonText: {
         fontFamily: 'MontserratBold',
         fontWeight: 'bold',
-        fontSize: 24,
+        fontSize: fontSize.main || 24,
         color: 'white',
 
 
@@ -94,7 +94,7 @@ const authStyles = StyleSheet.create({
     linkText: {
         fontFamily: 'MontserratMedium',
         fontWeight: 'medium',
-        fontSize: 24,
+        fontSize: fontSize.main || 24,
 
         marginTop: '5%',
     },
@@ -111,11 +111,11 @@ const authStyles = StyleSheet.create({
 
         fontFamily: 'MontserratBold',
         fontWeight: 'bold',
-        fontSize: 24,
+        fontSize: fontSize.main || 24,
         color: 'black',
 
         textDecorationLine: 'underline',
     }
 });
 
-export default authStyles;
+export default createAuthStyles;

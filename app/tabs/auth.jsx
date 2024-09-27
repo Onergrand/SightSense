@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ImageBackground } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, ImageBackground } from 'react-native';
 import { useFonts } from 'expo-font';
 
-import authStyles from "../styles/authStyles";
-
-const styles = authStyles;
+import createAuthStyles from "../styles/authStyles";
 
 export default function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [fontSize, setFontSize] = useState({
+        title: 48,
+        button: 18,
+        main: 24,
+        buttonResize: 36,
+    });
+
+    const styles = createAuthStyles(fontSize);
 
     const [fontsLoaded] = useFonts({
         MontserratRegular: require('../../assets/fonts/Montserrat-Regular.ttf'),
@@ -26,6 +32,24 @@ export default function Login() {
         console.log(username, password);
     };
 
+    const decreaseFontSize = () => {
+        setFontSize(prevFontSize => ({
+            title: Math.max(prevFontSize.title - 2, 8),
+            main: Math.max(prevFontSize.main - 2, 8),
+            button: Math.max(prevFontSize.button - 2, 8),
+            buttonResize: Math.max(prevFontSize.buttonResize - 2, 8),
+        }));
+    };
+
+    const increaseFontSize = () => {
+        setFontSize(prevFontSize => ({
+            title: prevFontSize.title + 2,
+            main: prevFontSize.main + 2,
+            button: prevFontSize.button + 2,
+            buttonResize: prevFontSize.buttonResize + 2,
+        }));
+    };
+
     return (
         <View style={styles.container}>
             <View style={styles.overlay}>
@@ -35,10 +59,10 @@ export default function Login() {
                     resizeMode="cover"
                 >
                     <View style={styles.textButtonContainer}>
-                        <TouchableOpacity id="decrease-font-size"  style={styles.resizeTextButton}>
+                        <TouchableOpacity onPress={decreaseFontSize} style={styles.resizeTextButton}>
                             <Text style={styles.buttonTextResize}>A-</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity id="increase-font-size"  style={styles.resizeTextButton}>
+                        <TouchableOpacity onPress={increaseFontSize} style={styles.resizeTextButton}>
                             <Text style={styles.buttonTextResize}>A+</Text>
                         </TouchableOpacity>
                     </View>

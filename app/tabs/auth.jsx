@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, ImageBackground } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 
 import createAuthStyles from "../styles/auth-styles";
 import {useFontSize} from "../utils/utils";

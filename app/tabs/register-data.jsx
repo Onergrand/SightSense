@@ -1,21 +1,24 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 
-import createRegisterStyles from "../styles/register-styles";
 import {LinearGradient} from "expo-linear-gradient";
 import {useFontSize} from "../utils/utils";
+import {Dropdown} from "react-native-element-dropdown";
+import createRegisterDataStyles from "../styles/register-data-styles";
 
-export default function Register() {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [email, setEmail] = useState('');
+
+export default function RegisterData() {
+    const [name, setName] = useState('');
+    const [surname, setSurname] = useState('');
+    const [dateOfBirth, setDateOfBirth] = useState('');
+    const [gender, setGender] = useState('');
     const { fontSize, setFontSize } = useFontSize();
 
-    const styles = createRegisterStyles(fontSize);
+    const styles = createRegisterDataStyles(fontSize);
 
-    const handleRegister = () => {
+    const saveAdditionalData = () => {
         // add firebase register logic in future
-        console.log(username, password);
+        console.log(name, surname, dateOfBirth, gender);
     };
 
     const decreaseFontSize = () => {
@@ -43,7 +46,7 @@ export default function Register() {
                 <LinearGradient
                     colors={['#F8DDF4', 'transparent']}
                     style={styles.background}
-                    >
+                >
 
                     <View style={styles.textButtonContainer}>
                         <TouchableOpacity onPress={decreaseFontSize} style={styles.resizeTextButton}>
@@ -54,39 +57,52 @@ export default function Register() {
                         </TouchableOpacity>
                     </View>
 
-                    <Text style={styles.title}>Регистрация</Text>
+                    <Text style={styles.title}>Данные пользователя</Text>
                 </LinearGradient>
 
                 <TextInput
                     style={styles.input}
-                    placeholder="введите логин"
-                    value={username}
-                    onChangeText={setUsername}
+                    placeholder="введите имя"
+                    value={name}
+                    onChangeText={setName}
                     placeholderTextColor={'black'}
                 />
                 <TextInput
                     style={styles.input}
-                    placeholder="введите пароль"
-                    value={password}
-                    onChangeText={setPassword}
+                    placeholder="введите фамилию"
+                    value={surname}
+                    onChangeText={setSurname}
                     placeholderTextColor={'black'}
                     secureTextEntry
                 />
                 <TextInput
                     style={styles.input}
-                    placeholder="повторите пароль"
-                    value={password}
-                    onChangeText={setPassword}
+                    placeholder="дата рождения"
+                    value={dateOfBirth}
+                    onChangeText={(date) => setDateOfBirth(date)}
                     placeholderTextColor={'black'}
-                    secureTextEntry
+                    keyboardType="numeric"
+                    maxLength={10}
                 />
-                <TouchableOpacity onPress={handleRegister} style={styles.registerButton}>
-                    <Text style={styles.registerButtonText}>создать аккаунт</Text>
-                </TouchableOpacity>
 
-                <Text style={styles.linkText}>Есть аккаунт?</Text>
-                <TouchableOpacity onPress={handleRegister} style={styles.loginButton}>
-                    <Text style={styles.loginButtonText}>Войти</Text>
+                <Dropdown
+                    style={styles.input}
+                    placeholderStyle={styles.placeholder}
+                    selectedTextStyle={styles.placeholder}
+                    inputSearchStyle={styles.placeholder}
+                    data={[
+                        {label: 'мужской', value: 'male'},
+                        {label: 'женский', value: 'female'},
+                    ]}
+                    labelField="label"
+                    valueField="value"
+                    placeholder="пол"
+                    value={gender}
+                    onChange={item => setGender(item.value)}
+                />
+
+                <TouchableOpacity onPress={saveAdditionalData} style={styles.saveDataButton}>
+                    <Text style={styles.saveDataButtonText}>продолжить</Text>
                 </TouchableOpacity>
             </View>
         </View>

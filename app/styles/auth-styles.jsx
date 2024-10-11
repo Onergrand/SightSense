@@ -12,7 +12,6 @@ const createAuthStyles = (fontSize) => StyleSheet.create({
     },
     background: {
         width: '100%',
-        height: 'auto',
     },
     overlay: {
         width: '100%',
@@ -24,7 +23,7 @@ const createAuthStyles = (fontSize) => StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'flex-end',
 
-        height: '20%',
+        height: 'auto',
 
         marginTop: '15%',
     },
@@ -41,9 +40,9 @@ const createAuthStyles = (fontSize) => StyleSheet.create({
         marginRight: '3%',
     },
     buttonTextResize: {
-      fontSize: fontSize.buttonResize || 36,
-      fontWeight: 'bold',
-      fontFamily: 'MontserratBold',
+        fontSize: fontSize.buttonResize || 36,
+        fontWeight: 'bold',
+        fontFamily: 'MontserratBold',
     },
     buttonText: {
         fontSize: fontSize.button || 18,
@@ -55,13 +54,13 @@ const createAuthStyles = (fontSize) => StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
 
-        marginTop: '10%',
-        marginBottom: 20,
+        marginTop: '5%',
+        marginBottom: '10%',
     },
     input: {
         width: '80%',
         padding: 10,
-        marginBottom: 20,
+        marginBottom: '10%',
 
         borderWidth: 2,
         borderColor: '#000',
@@ -89,6 +88,7 @@ const createAuthStyles = (fontSize) => StyleSheet.create({
 
 
         textAlign: 'center',
+        alignSelf: 'center',
         paddingTop: '6%',
     },
     linkText: {
@@ -96,7 +96,7 @@ const createAuthStyles = (fontSize) => StyleSheet.create({
         fontWeight: 'medium',
         fontSize: fontSize.main || 24,
 
-        marginTop: '5%',
+        marginTop: '10%',
     },
     registerButton: {
         width: '80%',

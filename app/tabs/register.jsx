@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 
-import createAuthStyles from "../styles/auth-styles";
-import {useFontSize} from "../utils/utils";
+import createRegisterStyles from "../styles/register-styles";
 import {LinearGradient} from "expo-linear-gradient";
+import {useFontSize} from "../utils/utils";
 
-export default function Login() {
+export default function Register() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('');
     const { fontSize, setFontSize } = useFontSize();
 
-    const styles = createAuthStyles(fontSize);
+    const styles = createRegisterStyles(fontSize);
 
-
-    const handleLogin = () => {
-        // add firebase login logic in future
+    const handleRegister = () => {
+        // add firebase register logic in future
         console.log(username, password);
     };
 
@@ -43,7 +43,8 @@ export default function Login() {
                 <LinearGradient
                     colors={['#F8DDF4', 'transparent']}
                     style={styles.background}
-                >
+                    >
+
                     <View style={styles.textButtonContainer}>
                         <TouchableOpacity onPress={decreaseFontSize} style={styles.resizeTextButton}>
                             <Text style={styles.buttonTextResize}>A-</Text>
@@ -53,7 +54,7 @@ export default function Login() {
                         </TouchableOpacity>
                     </View>
 
-                    <Text style={styles.title}>Добро пожаловать!</Text>
+                    <Text style={styles.title}>Регистрация</Text>
                 </LinearGradient>
 
                 <TextInput
@@ -71,13 +72,21 @@ export default function Login() {
                     placeholderTextColor={'black'}
                     secureTextEntry
                 />
-                <TouchableOpacity onPress={handleLogin} style={styles.loginButton}>
-                    <Text style={styles.loginButtonText}>вход</Text>
+                <TextInput
+                    style={styles.input}
+                    placeholder="повторите пароль"
+                    value={password}
+                    onChangeText={setPassword}
+                    placeholderTextColor={'black'}
+                    secureTextEntry
+                />
+                <TouchableOpacity onPress={handleRegister} style={styles.registerButton}>
+                    <Text style={styles.registerButtonText}>создать аккаунт</Text>
                 </TouchableOpacity>
 
-                <Text style={styles.linkText}>Нет аккаунта?</Text>
-                <TouchableOpacity onPress={handleLogin} style={styles.registerButton}>
-                    <Text style={styles.registerButtonText}>Зарегистрироваться</Text>
+                <Text style={styles.linkText}>Есть аккаунт?</Text>
+                <TouchableOpacity onPress={handleRegister} style={styles.loginButton}>
+                    <Text style={styles.loginButtonText}>Войти</Text>
                 </TouchableOpacity>
             </View>
         </View>

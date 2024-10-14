@@ -1,6 +1,6 @@
 import {StyleSheet} from "react-native";
 
-const createAuthStyles = (fontSize) => StyleSheet.create({
+const createRegisterDataStyles = (fontSize) => StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'flex-start',
@@ -12,7 +12,6 @@ const createAuthStyles = (fontSize) => StyleSheet.create({
     },
     background: {
         width: '100%',
-        height: 'auto',
     },
     overlay: {
         width: '100%',
@@ -24,7 +23,7 @@ const createAuthStyles = (fontSize) => StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'flex-end',
 
-        height: '20%',
+        height: 'auto',
 
         marginTop: '15%',
     },
@@ -41,9 +40,9 @@ const createAuthStyles = (fontSize) => StyleSheet.create({
         marginRight: '3%',
     },
     buttonTextResize: {
-      fontSize: fontSize.buttonResize || 36,
-      fontWeight: 'bold',
-      fontFamily: 'MontserratBold',
+        fontSize: fontSize.buttonResize || 36,
+        fontWeight: 'bold',
+        fontFamily: 'MontserratBold',
     },
     buttonText: {
         fontSize: fontSize.button || 18,
@@ -55,13 +54,13 @@ const createAuthStyles = (fontSize) => StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
 
-        marginTop: '10%',
-        marginBottom: 20,
+        marginTop: '5%',
+        marginBottom: '10%',
     },
     input: {
         width: '80%',
         padding: 10,
-        marginBottom: 20,
+        marginBottom: '10%',
 
         borderWidth: 2,
         borderColor: '#000',
@@ -72,8 +71,14 @@ const createAuthStyles = (fontSize) => StyleSheet.create({
         fontSize: fontSize.main || 24,
         color: '#000',
     },
-    loginButton: {
-        width: '40%',
+    placeholder: {
+        fontFamily: 'MontserratSemiBold',
+        fontWeight: 'semibold',
+        fontSize: fontSize.main || 24,
+        color: '#000',
+    },
+    saveDataButton: {
+        width: '50%',
         height: '8%',
         color: 'white',
         fontSize: fontSize.main || 24,
@@ -81,7 +86,7 @@ const createAuthStyles = (fontSize) => StyleSheet.create({
         backgroundColor: '#7B00E0',
         borderRadius: 20,
     },
-    loginButtonText: {
+    saveDataButtonText: {
         fontFamily: 'MontserratBold',
         fontWeight: 'bold',
         fontSize: fontSize.main || 24,
@@ -89,33 +94,9 @@ const createAuthStyles = (fontSize) => StyleSheet.create({
 
 
         textAlign: 'center',
+        alignSelf: 'center',
         paddingTop: '6%',
     },
-    linkText: {
-        fontFamily: 'MontserratMedium',
-        fontWeight: 'medium',
-        fontSize: fontSize.main || 24,
-
-        marginTop: '5%',
-    },
-    registerButton: {
-        width: '80%',
-        height: '8%',
-
-        backgroundColor: 'white',
-
-        marginTop: '5%',
-    },
-    registerButtonText: {
-        textAlign: 'center',
-
-        fontFamily: 'MontserratBold',
-        fontWeight: 'bold',
-        fontSize: fontSize.main || 24,
-        color: 'black',
-
-        textDecorationLine: 'underline',
-    }
 });
 
-export default createAuthStyles;
+export default createRegisterDataStyles;

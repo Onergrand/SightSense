@@ -3,6 +3,8 @@ import { View, StyleSheet } from 'react-native';
 import Login from './tabs/auth';
 import Register from "./tabs/register";
 import {useFonts} from "expo-font";
+import Main from "./tabs/main";
+import Profile from "./tabs/profile";
 
 export default function RootLayout() {
     const [fontsLoaded] = useFonts({
@@ -18,7 +20,7 @@ export default function RootLayout() {
 
     return (
         <View style={styles.container}>
-            <Login />
+            <Main />
         </View>
     );
 }

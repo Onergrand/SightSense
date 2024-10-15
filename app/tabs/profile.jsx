@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import {View, Text, TextInput, TouchableOpacity, Image} from 'react-native';
 
 import {LinearGradient} from "expo-linear-gradient";
 import {useFontSize} from "../utils/utils";
 import {Dropdown} from "react-native-element-dropdown";
-import createRegisterDataStyles from "../styles/register-data-styles";
+import createProfileStyles from "../styles/profile-styles";
 
 
-export default function RegisterData({ navigation }) {
+export default function Profile({ navigation }) {
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
     const [dateOfBirth, setDateOfBirth] = useState('');
     const [gender, setGender] = useState('');
     const { fontSize, setFontSize } = useFontSize();
 
-    const styles = createRegisterDataStyles(fontSize);
+    const styles = createProfileStyles(fontSize);
 
     const decreaseFontSize = () => {
         setFontSize(prevFontSize => ({
@@ -40,21 +40,29 @@ export default function RegisterData({ navigation }) {
 
                 <LinearGradient
                     colors={['#F8DDF4', 'transparent']}
-                    style={styles.background}
-                >
+                    style={styles.background}>
 
-                    <View style={styles.textButtonContainer}>
-                        <TouchableOpacity onPress={decreaseFontSize} style={styles.resizeTextButton}>
-                            <Text style={styles.buttonTextResize}>A-</Text>
+                    <View style={styles.topMenuContainer}>
+                        <TouchableOpacity onPress={() => navigation.navigate('Login')} style={styles.exitButton}>
+                            <Text style={styles.exitButtonText}>Выйти</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={increaseFontSize} style={styles.resizeTextButton}>
-                            <Text style={styles.buttonTextResize}>A+</Text>
-                        </TouchableOpacity>
+
+                        <View style={styles.textButtonContainer}>
+
+
+
+                            <TouchableOpacity onPress={decreaseFontSize} style={styles.resizeTextButton}>
+                                <Text style={styles.buttonTextResize}>A-</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={increaseFontSize} style={styles.resizeTextButton}>
+                                <Text style={styles.buttonTextResize}>A+</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
-
-                    <Text style={styles.title}>Данные пользователя</Text>
+                    <Text style={styles.title}>Профиль</Text>
                 </LinearGradient>
 
+                <Text style={styles.pointName}>Имя</Text>
                 <TextInput
                     style={styles.input}
                     placeholder="введите имя"
@@ -62,6 +70,8 @@ export default function RegisterData({ navigation }) {
                     onChangeText={setName}
                     placeholderTextColor={'black'}
                 />
+
+                <Text style={styles.pointName}>Фамилия</Text>
                 <TextInput
                     style={styles.input}
                     placeholder="введите фамилию"
@@ -70,6 +80,8 @@ export default function RegisterData({ navigation }) {
                     placeholderTextColor={'black'}
                     secureTextEntry
                 />
+
+                <Text style={styles.pointName}>Дата рождения</Text>
                 <TextInput
                     style={styles.input}
                     placeholder="дата рождения"
@@ -80,6 +92,7 @@ export default function RegisterData({ navigation }) {
                     maxLength={10}
                 />
 
+                <Text style={styles.pointName}>Пол</Text>
                 <Dropdown
                     style={styles.input}
                     placeholderStyle={styles.placeholder}
@@ -96,9 +109,18 @@ export default function RegisterData({ navigation }) {
                     onChange={item => setGender(item.value)}
                 />
 
-                <TouchableOpacity onPress={() => navigation.navigate('Main')} style={styles.saveDataButton}>
-                    <Text style={styles.saveDataButtonText}>продолжить</Text>
+                <TouchableOpacity onPress={() => navigation.navigate('ProfileEdit')} style={styles.changeDataButton}>
+                    <Text style={styles.changeDataButtonText}>Редактировать</Text>
                 </TouchableOpacity>
+
+                <View style={styles.bottomMenu}>
+                    <TouchableOpacity onPress={() => navigation.navigate('Main')} style={styles.bottomMenuButton}>
+                        <Image source={require('../../assets/images/home-icon.png')} style={styles.icon} />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.bottomMenuButton}>
+                        <Image source={require('../../assets/images/profile-icon.png')} style={styles.icon} />
+                    </TouchableOpacity>
+                </View>
             </View>
         </View>
     );

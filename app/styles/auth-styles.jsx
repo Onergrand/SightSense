@@ -102,8 +102,6 @@ const createAuthStyles = (fontSize) => StyleSheet.create({
         width: '80%',
         height: '8%',
 
-        backgroundColor: 'white',
-
         marginTop: '5%',
     },
     registerButtonText: {

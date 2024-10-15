@@ -1,8 +1,16 @@
-import React, {useEffect, useState} from 'react';
-import { View, StyleSheet } from 'react-native';
+import React from 'react';
+import {useFonts} from "expo-font";
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
 import Login from './tabs/auth';
 import Register from "./tabs/register";
-import {useFonts} from "expo-font";
+import Main from "./tabs/main";
+import Profile from "./tabs/profile";
+import ProfileEdit from "./tabs/profile-edit";
+import RegisterData from "./tabs/register-data";
+
+const Stack = createStackNavigator();
 
 export default function RootLayout() {
     const [fontsLoaded] = useFonts({
@@ -17,19 +25,15 @@ export default function RootLayout() {
     }
 
     return (
-        <View style={styles.container}>
-            <Login />
-        </View>
+        <NavigationContainer independent={true}>
+            <Stack.Navigator screenOptions={{ headerShown: false }}>
+                <Stack.Screen name="Login" component={Login}/>
+                <Stack.Screen name="Register" component={Register}/>
+                <Stack.Screen name="RegisterData" component={RegisterData}/>
+                <Stack.Screen name="Main" component={Main}/>
+                <Stack.Screen name="Profile" component={Profile}/>
+                <Stack.Screen name="ProfileEdit" component={ProfileEdit}/>
+            </Stack.Navigator>
+        </NavigationContainer>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-
-        margin: 0,
-        padding: 0,
-    }
-});

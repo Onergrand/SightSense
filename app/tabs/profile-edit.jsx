@@ -1,20 +1,25 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import {View, Text, TextInput, TouchableOpacity, Image} from 'react-native';
 
 import {LinearGradient} from "expo-linear-gradient";
 import {useFontSize} from "../utils/utils";
 import {Dropdown} from "react-native-element-dropdown";
-import createRegisterDataStyles from "../styles/register-data-styles";
+import createProfileEditStyles from "../styles/profile-edit-styles";
 
 
-export default function RegisterData({ navigation }) {
+export default function ProfileEdit({ navigation }) {
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
     const [dateOfBirth, setDateOfBirth] = useState('');
     const [gender, setGender] = useState('');
     const { fontSize, setFontSize } = useFontSize();
 
-    const styles = createRegisterDataStyles(fontSize);
+    const styles = createProfileEditStyles(fontSize);
+
+    const saveAdditionalData = () => {
+        // add firebase register logic in future
+        console.log(name, surname, dateOfBirth, gender);
+    };
 
     const decreaseFontSize = () => {
         setFontSize(prevFontSize => ({
@@ -40,21 +45,25 @@ export default function RegisterData({ navigation }) {
 
                 <LinearGradient
                     colors={['#F8DDF4', 'transparent']}
-                    style={styles.background}
-                >
+                    style={styles.background}>
 
-                    <View style={styles.textButtonContainer}>
-                        <TouchableOpacity onPress={decreaseFontSize} style={styles.resizeTextButton}>
-                            <Text style={styles.buttonTextResize}>A-</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={increaseFontSize} style={styles.resizeTextButton}>
-                            <Text style={styles.buttonTextResize}>A+</Text>
-                        </TouchableOpacity>
+                    <View style={styles.topMenuContainer}>
+                        <View style={styles.textButtonContainer}>
+
+
+
+                            <TouchableOpacity onPress={decreaseFontSize} style={styles.resizeTextButton}>
+                                <Text style={styles.buttonTextResize}>A-</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={increaseFontSize} style={styles.resizeTextButton}>
+                                <Text style={styles.buttonTextResize}>A+</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
-
-                    <Text style={styles.title}>Данные пользователя</Text>
+                    <Text style={styles.title}>Профиль</Text>
                 </LinearGradient>
 
+                <Text style={styles.pointName}>Имя</Text>
                 <TextInput
                     style={styles.input}
                     placeholder="введите имя"
@@ -62,6 +71,8 @@ export default function RegisterData({ navigation }) {
                     onChangeText={setName}
                     placeholderTextColor={'black'}
                 />
+
+                <Text style={styles.pointName}>Фамилия</Text>
                 <TextInput
                     style={styles.input}
                     placeholder="введите фамилию"
@@ -70,6 +81,8 @@ export default function RegisterData({ navigation }) {
                     placeholderTextColor={'black'}
                     secureTextEntry
                 />
+
+                <Text style={styles.pointName}>Дата рождения</Text>
                 <TextInput
                     style={styles.input}
                     placeholder="дата рождения"
@@ -80,6 +93,7 @@ export default function RegisterData({ navigation }) {
                     maxLength={10}
                 />
 
+                <Text style={styles.pointName}>Пол</Text>
                 <Dropdown
                     style={styles.input}
                     placeholderStyle={styles.placeholder}
@@ -96,9 +110,14 @@ export default function RegisterData({ navigation }) {
                     onChange={item => setGender(item.value)}
                 />
 
-                <TouchableOpacity onPress={() => navigation.navigate('Main')} style={styles.saveDataButton}>
-                    <Text style={styles.saveDataButtonText}>продолжить</Text>
+                <TouchableOpacity style={styles.changeDataButton}>
+                    <Text style={styles.changeDataButtonText}>Сохранить</Text>
                 </TouchableOpacity>
+
+                <TouchableOpacity onPress={() => navigation.navigate('Profile')} style={styles.changeDataButton}>
+                    <Text style={styles.changeDataButtonText}>Назад</Text>
+                </TouchableOpacity>
+
             </View>
         </View>
     );

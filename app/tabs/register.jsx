@@ -5,18 +5,13 @@ import createRegisterStyles from "../styles/register-styles";
 import {LinearGradient} from "expo-linear-gradient";
 import {useFontSize} from "../utils/utils";
 
-export default function Register() {
+export default function Register({ navigation }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
     const { fontSize, setFontSize } = useFontSize();
 
     const styles = createRegisterStyles(fontSize);
-
-    const handleRegister = () => {
-        // add firebase register logic in future
-        console.log(username, password);
-    };
 
     const decreaseFontSize = () => {
         setFontSize(prevFontSize => ({
@@ -80,12 +75,12 @@ export default function Register() {
                     placeholderTextColor={'black'}
                     secureTextEntry
                 />
-                <TouchableOpacity onPress={handleRegister} style={styles.registerButton}>
+                <TouchableOpacity onPress={() => navigation.navigate('RegisterData')} style={styles.registerButton}>
                     <Text style={styles.registerButtonText}>создать аккаунт</Text>
                 </TouchableOpacity>
 
                 <Text style={styles.linkText}>Есть аккаунт?</Text>
-                <TouchableOpacity onPress={handleRegister} style={styles.loginButton}>
+                <TouchableOpacity onPress={() => navigation.navigate('Login')} style={styles.loginButton}>
                     <Text style={styles.loginButtonText}>Войти</Text>
                 </TouchableOpacity>
             </View>

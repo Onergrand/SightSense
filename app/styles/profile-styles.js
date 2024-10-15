@@ -1,6 +1,6 @@
 import {StyleSheet} from "react-native";
 
-const createRegisterStyles = (fontSize) => StyleSheet.create({
+const createProfileStyles = (fontSize) => StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'flex-start',
@@ -13,8 +13,18 @@ const createRegisterStyles = (fontSize) => StyleSheet.create({
     background: {
         width: '100%',
     },
+    topMenuContainer: {
+        height: 65,
+
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+
+        marginTop: '15%',
+    },
     overlay: {
         width: '100%',
+        height: '100%',
         backgroundColor: 'rgba(255, 255, 255, 0)',
         alignItems: 'center',
     },
@@ -24,11 +34,11 @@ const createRegisterStyles = (fontSize) => StyleSheet.create({
         justifyContent: 'flex-end',
 
         height: 'auto',
-
-        marginTop: '15%',
     },
     resizeTextButton: {
-        width: '20%',
+        height: '100%',
+        width: '30%',
+
         backgroundColor: 'white',
         borderColor: 'black',
         borderWidth: 2,
@@ -36,17 +46,13 @@ const createRegisterStyles = (fontSize) => StyleSheet.create({
 
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 10,
+
         marginRight: '3%',
     },
     buttonTextResize: {
         fontSize: fontSize.buttonResize || 36,
         fontWeight: 'bold',
         fontFamily: 'MontserratBold',
-    },
-    buttonText: {
-        fontSize: fontSize.button || 18,
-        fontWeight: 'bold',
     },
     title: {
         fontFamily: 'MontserratBold',
@@ -55,12 +61,12 @@ const createRegisterStyles = (fontSize) => StyleSheet.create({
         textAlign: 'center',
 
         marginTop: '5%',
-        marginBottom: '10%',
+        marginBottom: '2%',
     },
     input: {
         width: '80%',
-        padding: 10,
-        marginBottom: '10%',
+        padding: 6,
+        marginBottom: '4%',
 
         borderWidth: 2,
         borderColor: '#000',
@@ -71,16 +77,55 @@ const createRegisterStyles = (fontSize) => StyleSheet.create({
         fontSize: fontSize.main || 24,
         color: '#000',
     },
-    registerButton: {
-        width: '40%',
-        height: '10%',
+    pointName: {
+        fontFamily: 'MontserratSemiBold',
+        fontWeight: 'semibold',
+        fontSize: fontSize.main || 24,
+        color: '#000',
+
+        marginBottom: '2%',
+    },
+    placeholder: {
+        fontFamily: 'MontserratSemiBold',
+        fontWeight: 'semibold',
+        fontSize: fontSize.main || 24,
+        color: '#000',
+    },
+    bottomMenu: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+
+        width: '100%',
+        height: '8%',
+
+        position: 'absolute',
+        bottom: 0,
+    },
+    bottomMenuButton: {
+        width: '49%',
+        height: '100%',
+
+        backgroundColor: '#7B00E0',
+
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    icon: {
+        width: '30%',
+        height: '60%',
+    },
+    changeDataButton: {
+        marginTop: '3%',
+        width: '50%',
+        height: '6%',
         color: 'white',
         fontSize: fontSize.main || 24,
 
         backgroundColor: '#7B00E0',
         borderRadius: 20,
     },
-    registerButtonText: {
+    changeDataButtonText: {
         fontFamily: 'MontserratBold',
         fontWeight: 'bold',
         fontSize: fontSize.main || 24,
@@ -91,29 +136,24 @@ const createRegisterStyles = (fontSize) => StyleSheet.create({
         alignSelf: 'center',
         paddingTop: '3%',
     },
-    linkText: {
-        fontFamily: 'MontserratMedium',
-        fontWeight: 'medium',
+    exitButton: {
+        width: '30%',
+        height: '100%',
+        color: 'white',
         fontSize: fontSize.main || 24,
 
-        marginTop: '10%',
-    },
-    loginButton: {
-        width: '80%',
-        height: '8%',
+        backgroundColor: '#7B00E0',
+        borderRadius: 20,
 
-        marginTop: '5%',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
-    loginButtonText: {
-        textAlign: 'center',
-
+    exitButtonText: {
         fontFamily: 'MontserratBold',
         fontWeight: 'bold',
         fontSize: fontSize.main || 24,
-        color: 'black',
-
-        textDecorationLine: 'underline',
-    }
+        color: 'white',
+    },
 });
 
-export default createRegisterStyles;
+export default createProfileStyles;

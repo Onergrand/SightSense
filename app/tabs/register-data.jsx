@@ -7,7 +7,7 @@ import {Dropdown} from "react-native-element-dropdown";
 import createRegisterDataStyles from "../styles/register-data-styles";
 
 
-export default function RegisterData() {
+export default function RegisterData({ navigation }) {
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
     const [dateOfBirth, setDateOfBirth] = useState('');
@@ -15,11 +15,6 @@ export default function RegisterData() {
     const { fontSize, setFontSize } = useFontSize();
 
     const styles = createRegisterDataStyles(fontSize);
-
-    const saveAdditionalData = () => {
-        // add firebase register logic in future
-        console.log(name, surname, dateOfBirth, gender);
-    };
 
     const decreaseFontSize = () => {
         setFontSize(prevFontSize => ({
@@ -101,7 +96,7 @@ export default function RegisterData() {
                     onChange={item => setGender(item.value)}
                 />
 
-                <TouchableOpacity onPress={saveAdditionalData} style={styles.saveDataButton}>
+                <TouchableOpacity onPress={() => navigation.navigate('Main')} style={styles.saveDataButton}>
                     <Text style={styles.saveDataButtonText}>продолжить</Text>
                 </TouchableOpacity>
             </View>

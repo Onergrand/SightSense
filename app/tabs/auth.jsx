@@ -5,18 +5,12 @@ import createAuthStyles from "../styles/auth-styles";
 import {useFontSize} from "../utils/utils";
 import {LinearGradient} from "expo-linear-gradient";
 
-export default function Login() {
+export default function Login({ navigation }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const { fontSize, setFontSize } = useFontSize();
 
     const styles = createAuthStyles(fontSize);
-
-
-    const handleLogin = () => {
-        // add firebase login logic in future
-        console.log(username, password);
-    };
 
     const decreaseFontSize = () => {
         setFontSize(prevFontSize => ({
@@ -71,12 +65,12 @@ export default function Login() {
                     placeholderTextColor={'black'}
                     secureTextEntry
                 />
-                <TouchableOpacity onPress={handleLogin} style={styles.loginButton}>
+                <TouchableOpacity onPress={() => navigation.navigate('Main')} style={styles.loginButton}>
                     <Text style={styles.loginButtonText}>вход</Text>
                 </TouchableOpacity>
 
                 <Text style={styles.linkText}>Нет аккаунта?</Text>
-                <TouchableOpacity onPress={handleLogin} style={styles.registerButton}>
+                <TouchableOpacity onPress={() => navigation.navigate('Register')} style={styles.registerButton}>
                     <Text style={styles.registerButtonText}>Зарегистрироваться</Text>
                 </TouchableOpacity>
             </View>

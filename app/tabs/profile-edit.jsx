@@ -4,17 +4,22 @@ import {View, Text, TextInput, TouchableOpacity, Image} from 'react-native';
 import {LinearGradient} from "expo-linear-gradient";
 import {useFontSize} from "../utils/utils";
 import {Dropdown} from "react-native-element-dropdown";
-import createProfileStyles from "../styles/profile-styles";
+import createProfileEditStyles from "../styles/profile-edit-styles";
 
 
-export default function Profile({ navigation }) {
+export default function ProfileEdit({ navigation }) {
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
     const [dateOfBirth, setDateOfBirth] = useState('');
     const [gender, setGender] = useState('');
     const { fontSize, setFontSize } = useFontSize();
 
-    const styles = createProfileStyles(fontSize);
+    const styles = createProfileEditStyles(fontSize);
+
+    const saveAdditionalData = () => {
+        // add firebase register logic in future
+        console.log(name, surname, dateOfBirth, gender);
+    };
 
     const decreaseFontSize = () => {
         setFontSize(prevFontSize => ({
@@ -43,10 +48,6 @@ export default function Profile({ navigation }) {
                     style={styles.background}>
 
                     <View style={styles.topMenuContainer}>
-                        <TouchableOpacity onPress={() => navigation.navigate('Login')} style={styles.exitButton}>
-                            <Text style={styles.exitButtonText}>Выйти</Text>
-                        </TouchableOpacity>
-
                         <View style={styles.textButtonContainer}>
 
 
@@ -109,18 +110,14 @@ export default function Profile({ navigation }) {
                     onChange={item => setGender(item.value)}
                 />
 
-                <TouchableOpacity onPress={() => navigation.navigate('ProfileEdit')} style={styles.changeDataButton}>
-                    <Text style={styles.changeDataButtonText}>Редактировать</Text>
+                <TouchableOpacity style={styles.changeDataButton}>
+                    <Text style={styles.changeDataButtonText}>Сохранить</Text>
                 </TouchableOpacity>
 
-                <View style={styles.bottomMenu}>
-                    <TouchableOpacity onPress={() => navigation.navigate('Main')} style={styles.bottomMenuButton}>
-                        <Image source={require('../../assets/images/home-icon.png')} style={styles.icon} />
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.bottomMenuButton}>
-                        <Image source={require('../../assets/images/profile-icon.png')} style={styles.icon} />
-                    </TouchableOpacity>
-                </View>
+                <TouchableOpacity onPress={() => navigation.navigate('Profile')} style={styles.changeDataButton}>
+                    <Text style={styles.changeDataButtonText}>Назад</Text>
+                </TouchableOpacity>
+
             </View>
         </View>
     );

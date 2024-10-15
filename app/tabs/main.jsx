@@ -6,7 +6,7 @@ import {useFontSize} from "../utils/utils";
 import createMainStyles from "../styles/main-styles";
 import {Dropdown} from "react-native-element-dropdown";
 
-export default function Main() {
+export default function Main({ navigation }) {
     const [mode, setMode] = useState('');
     const [contrast, setContrast] = useState('');
     const { fontSize, setFontSize } = useFontSize();
@@ -100,14 +100,13 @@ export default function Main() {
                 </View>
 
                 <View style={styles.bottomMenu}>
-                    <TouchableOpacity onPress={decreaseFontSize} style={styles.bottomMenuButton}>
+                    <TouchableOpacity style={styles.bottomMenuButton}>
                         <Image source={require('../../assets/images/home-icon.png')} style={styles.icon} />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={increaseFontSize} style={styles.bottomMenuButton}>
+                    <TouchableOpacity onPress={() => navigation.navigate('Profile')} style={styles.bottomMenuButton}>
                         <Image source={require('../../assets/images/profile-icon.png')} style={styles.icon} />
                     </TouchableOpacity>
                 </View>
-
             </View>
         </View>
     );

@@ -15,10 +15,14 @@
       "supportsTablet": true
     },
     "android": {
+      "permissions": [
+        "CAMERA"
+      ],
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.onergrand.sightsense"
     },
     "web": {
       "bundler": "metro",
@@ -30,6 +34,11 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "cca316a1-5f95-4392-96a9-e072b00ba605"
+      }
     }
   }
 }

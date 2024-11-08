@@ -171,6 +171,23 @@ export default function Main({ navigation }) {
                 )}
             </LinearGradient>
 
+            <Text style={styles.pointName}>Выберите камеру</Text>
+            <Dropdown
+                style={styles.input}
+                placeholderStyle={styles.placeholder}
+                selectedTextStyle={styles.placeholder}
+                inputSearchStyle={styles.placeholder}
+                data={[
+                    { label: 'Основная', value: 'back' },
+                    { label: 'Фронтальная', value: 'front' },
+                ]}
+                labelField="label"
+                valueField="value"
+                placeholder="Основная камера"
+                value={facing}
+                onChange={item => setFacing(item.value)}
+            />
+
             <Text style={styles.pointName}>Выберите режим</Text>
             <Dropdown
                 style={styles.input}

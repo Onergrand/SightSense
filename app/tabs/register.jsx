@@ -4,14 +4,40 @@ import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import createRegisterStyles from "../styles/register-styles";
 import {LinearGradient} from "expo-linear-gradient";
 import {useFontSize} from "../utils/utils";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+
+import {FIREBASE_AUTH} from "../firebaseConfig";
 
 export default function Register({ navigation }) {
-    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [email, setEmail] = useState('');
     const { fontSize, setFontSize } = useFontSize();
+    const auth = FIREBASE_AUTH;
 
     const styles = createRegisterStyles(fontSize);
+
+    const handleRegister = async () => {
+        if (password !== confirmPassword) {
+            alert('Ошибка', 'Пароли не совпадают.');
+            return;
+        }
+
+        try {
+            const response = await createUserWithEmailAndPassword(auth, email, password);
+            navigation.navigate('RegisterData');
+        } catch (error) {
+            if (error.code === 'auth/email-already-in-use') {
+                alert('Ошибка', 'Этот email уже зарегистрирован.');
+            } else if (error.code === 'auth/invalid-email') {
+                alert('Ошибка', 'Неверный формат электронной почты.');
+            } else if (error.code === 'auth/weak-password') {
+                alert('Ошибка', 'Пароль должен содержать не менее 6 символов.');
+            } else {
+                alert('Ошибка', error.message);
+            }
+        }
+    };
 
     const decreaseFontSize = () => {
         setFontSize(prevFontSize => ({
@@ -54,9 +80,10 @@ export default function Register({ navigation }) {
 
                 <TextInput
                     style={styles.input}
-                    placeholder="введите логин"
-                    value={username}
-                    onChangeText={setUsername}
+                    placeholder="введите почту"
+                    textContentType={'emailAddress'}
+                    value={email}
+                    onChangeText={setEmail}
                     placeholderTextColor={'black'}
                 />
                 <TextInput
@@ -70,12 +97,12 @@ export default function Register({ navigation }) {
                 <TextInput
                     style={styles.input}
                     placeholder="повторите пароль"
-                    value={password}
-                    onChangeText={setPassword}
+                    value={confirmPassword}
+                    onChangeText={setConfirmPassword}
                     placeholderTextColor={'black'}
                     secureTextEntry
                 />
-                <TouchableOpacity onPress={() => navigation.navigate('RegisterData')} style={styles.registerButton}>
+                <TouchableOpacity onPress={() => handleRegister()} style={styles.registerButton}>
                     <Text style={styles.registerButtonText}>создать аккаунт</Text>
                 </TouchableOpacity>
 

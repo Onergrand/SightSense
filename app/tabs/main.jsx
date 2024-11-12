@@ -1,14 +1,16 @@
-import React, {useEffect, useRef, useState} from 'react';
-import { View, Text, TextInput, TouchableOpacity, Image, Button, StyleSheet } from 'react-native';
+import React, {useRef, useState} from 'react';
+import { View, Text, TextInput, TouchableOpacity, Image, Button } from 'react-native';
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import { LinearGradient } from "expo-linear-gradient";
 import { useFontSize } from "../utils/utils";
 import createMainStyles from "../styles/main-styles";
 import { Dropdown } from "react-native-element-dropdown";
+import { Audio } from 'expo-av';
+import * as FileSystem from 'expo-file-system';
 
 export default function Main({ navigation }) {
-    const [mode, setMode] = useState('');
-    const [contrast, setContrast] = useState('');
+    const [mode, setMode] = useState('0');
+    const [contrast, setContrast] = useState('2.00');
     const { fontSize, setFontSize } = useFontSize();
 
     const [facing, setFacing] = useState('back');
@@ -20,8 +22,6 @@ export default function Main({ navigation }) {
 
     const styles = createMainStyles(fontSize);
 
-    // setMode('first');
-    // setContrast(2);
 
     if (!permission) {
         return <View />;
@@ -36,33 +36,87 @@ export default function Main({ navigation }) {
         );
     }
 
-    const turnOnCamera = () => {
-        setIsCameraActive(true);
+    const playBase64Sound = async (base64Sound) => {
+        try {
+            // Создаем путь для временного хранения аудиофайла
+            const fileUri = FileSystem.cacheDirectory + 'temp_sound.wav';
+
+            // Преобразуем Base64 в аудиофайл и сохраняем
+            await FileSystem.writeAsStringAsync(fileUri, base64Sound, {
+                encoding: FileSystem.EncodingType.Base64,
+            });
+
+            // Загружаем звук и воспроизводим его
+            const { sound } = await Audio.Sound.createAsync(
+                { uri: fileUri },
+                { shouldPlay: true }
+            );
+
+            // Звук будет воспроизводиться автоматически из-за `shouldPlay: true`
+            sound.setOnPlaybackStatusUpdate((status) => {
+                if (status.didJustFinish) {
+                    // Освобождаем ресурсы после завершения воспроизведения
+                    sound.unloadAsync();
+                }
+            });
+        } catch (error) {
+            console.error('Error playing sound:', error);
+        }
     };
 
-    const turnOffCamera = () => {
-        setIsCameraActive(false);
-    };
+
+    async function callSonificateImage(imageBase64, mode, contrast) {
+        try {
+            const response = await fetch('https://4017-5-2-55-78.ngrok-free.app/remake', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ image_base64: imageBase64, mode: mode, contrast: contrast }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+
+            const data = await response.json();
+
+            return data;
+        } catch (error) {
+            console.error('There has been a problem with your fetch operation:', error);
+        }
+    }
 
     const startCapturing = () => {
         setIsCameraActive(true);
+        let isProcessing = false;
+
         intervalRef.current = setInterval(async () => {
-            if (cameraRef.current) {
+            if (cameraRef.current && !isProcessing) {
+                isProcessing = true;  // Устанавливаем флаг, чтобы заблокировать последующие вызовы
                 try {
                     console.log('');
 
+                    // Захват фото
                     const photo = await cameraRef.current.takePictureAsync({
                         quality: 0.8,
-                        base64: false,
+                        base64: true,
                         skipProcessing: false,
                     });
-                    setCapturedImage(photo.uri);
-                    console.log(mode);
+
+                    console.log(mode, contrast);
+
+                    let data = await callSonificateImage(photo.base64, mode, contrast);
+
+                    await playBase64Sound(data.audio);
+                    setCapturedImage(data.image);
                 } catch (error) {
                     console.error('Error taking picture:', error);
+                } finally {
+                    isProcessing = false; // Сбрасываем флаг после завершения операции
                 }
             }
-        }, 5000);
+        }, 1000);
     };
 
 
@@ -89,14 +143,6 @@ export default function Main({ navigation }) {
         }));
     };
 
-    // useEffect(() => {
-    //     return () => {
-    //         // Очищаем интервал при размонтировании компонента
-    //         if (intervalRef.current) {
-    //             clearInterval(intervalRef.current);
-    //         }
-    //     };
-    // }, []);
 
     return (
         <View style={styles.container}>
@@ -113,9 +159,9 @@ export default function Main({ navigation }) {
 
                 </View>
 
+                {isCameraActive && (<Image source={{ uri: `data:image/jpeg;base64,<${capturedImage}>` }} style={styles.cameraFill} />)}
                 {isCameraActive && (
-                    <CameraView ref={cameraRef} mute={true} style={styles.cameraFill} facing={facing} onCameraReady={() => console.log('Camera is ready')}>
-                        <Image source={{ uri: capturedImage }} style={styles.cameraFill} />
+                    <CameraView ref={cameraRef} mute={true} style={styles.camera} facing={facing} onCameraReady={() => console.log('Camera is ready')}>
                     </CameraView>
                 )}
                 {!isCameraActive && (
@@ -132,13 +178,13 @@ export default function Main({ navigation }) {
                 selectedTextStyle={styles.placeholder}
                 inputSearchStyle={styles.placeholder}
                 data={[
-                    { label: 'Режим 1', value: 'first' },
-                    { label: 'Режим 2', value: 'second' },
-                    { label: 'Режим 3', value: 'third' },
+                    { label: 'Режим 1', value: '0' },
+                    { label: 'Режим 2', value: '1' },
+                    { label: 'Режим 3', value: '2' },
                 ]}
                 labelField="label"
                 valueField="value"
-                placeholder="Режим 1"
+                placeholder="Режим ..."
                 value={mode}
                 onChange={item => setMode(item.value)}
             />
@@ -146,7 +192,8 @@ export default function Main({ navigation }) {
             <Text style={styles.pointName}>Выберите контраст</Text>
             <TextInput
                 style={styles.input}
-                placeholder="1.05"
+                placeholder="2.00"
+                keyboardType="numeric"
                 value={contrast}
                 onChangeText={setContrast}
                 placeholderTextColor={'black'}

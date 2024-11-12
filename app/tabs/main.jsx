@@ -76,7 +76,7 @@ export default function Main({ navigation }) {
             });
 
             if (!response.ok) {
-                throw new Error('Network response was not ok ' + response.statusText);
+                console.error('Network response was not ok ' + response.statusText);
             }
 
             const data = await response.json();
@@ -170,6 +170,23 @@ export default function Main({ navigation }) {
                     </View>
                 )}
             </LinearGradient>
+
+            <Text style={styles.pointName}>Выберите камеру</Text>
+            <Dropdown
+                style={styles.input}
+                placeholderStyle={styles.placeholder}
+                selectedTextStyle={styles.placeholder}
+                inputSearchStyle={styles.placeholder}
+                data={[
+                    { label: 'Основная', value: 'back' },
+                    { label: 'Фронтальная', value: 'front' },
+                ]}
+                labelField="label"
+                valueField="value"
+                placeholder="Основная камера"
+                value={facing}
+                onChange={item => setFacing(item.value)}
+            />
 
             <Text style={styles.pointName}>Выберите режим</Text>
             <Dropdown

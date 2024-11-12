@@ -4,13 +4,25 @@ import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import createAuthStyles from "../styles/auth-styles";
 import {useFontSize} from "../utils/utils";
 import {LinearGradient} from "expo-linear-gradient";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import {FIREBASE_AUTH} from "../firebaseConfig";
 
 export default function Login({ navigation }) {
-    const [username, setUsername] = useState('');
+    const [mail, setMail] = useState('');
     const [password, setPassword] = useState('');
     const { fontSize, setFontSize } = useFontSize();
+    const auth = FIREBASE_AUTH;
 
     const styles = createAuthStyles(fontSize);
+
+    const handleLogin = async () => {
+        try {
+            const response = await signInWithEmailAndPassword(auth, mail, password);
+            navigation.navigate('Main');
+        } catch (error) {
+            alert('Ошибка', error.message);
+        }
+    }
 
     const decreaseFontSize = () => {
         setFontSize(prevFontSize => ({
@@ -52,9 +64,10 @@ export default function Login({ navigation }) {
 
                 <TextInput
                     style={styles.input}
-                    placeholder="введите логин"
-                    value={username}
-                    onChangeText={setUsername}
+                    placeholder="введите почту"
+                    textContentType={"emailAddress"}
+                    value={mail}
+                    onChangeText={setMail}
                     placeholderTextColor={'black'}
                 />
                 <TextInput
@@ -65,7 +78,7 @@ export default function Login({ navigation }) {
                     placeholderTextColor={'black'}
                     secureTextEntry
                 />
-                <TouchableOpacity onPress={() => navigation.navigate('Main')} style={styles.loginButton}>
+                <TouchableOpacity onPress={() => handleLogin()} style={styles.loginButton}>
                     <Text style={styles.loginButtonText}>вход</Text>
                 </TouchableOpacity>
 

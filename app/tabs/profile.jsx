@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import {View, Text, TextInput, TouchableOpacity, Image} from 'react-native';
-
-import {LinearGradient} from "expo-linear-gradient";
-import {useFontSize} from "../utils/utils";
-import {Dropdown} from "react-native-element-dropdown";
+import React, { useState, useEffect } from 'react';
+import { View, Text, TextInput, TouchableOpacity, Image } from 'react-native';
+import { LinearGradient } from "expo-linear-gradient";
+import { useFontSize } from "../utils/utils";
+import { Dropdown } from "react-native-element-dropdown";
 import createProfileStyles from "../styles/profile-styles";
-
+import { signOut } from 'firebase/auth';
+import { collection, getDocs } from 'firebase/firestore';
+import { FIREBASE_AUTH, FIREBASE_DB } from "../firebaseConfig";
 
 export default function Profile({ navigation }) {
     const [name, setName] = useState('');
@@ -34,6 +35,35 @@ export default function Profile({ navigation }) {
         }));
     };
 
+    // Функция для получения данных пользователя из Firestore
+    const fetchUserData = async () => {
+        try {
+            const querySnapshot = await getDocs(collection(FIREBASE_DB, "users/" + FIREBASE_AUTH.currentUser.uid + "/data"));
+            if (!querySnapshot.empty) {
+                const user = querySnapshot.docs[0].data();
+                setName(user.name);
+                setSurname(user.surname);
+                setDateOfBirth(user.dateOfBirth);
+                setGender(user.gender);
+            }
+        } catch (error) {
+            console.error('Error fetching user data: ', error);
+        }
+    };
+
+    const handleLogout = async () => {
+        try {
+            await signOut(FIREBASE_AUTH);
+            navigation.navigate('Login');
+        } catch (error) {
+            console.error('Error signing out: ', error);
+        }
+    };
+
+    useEffect(() => {
+        fetchUserData();
+    }, []);
+
     return (
         <View style={styles.container}>
             <View style={styles.overlay}>
@@ -43,14 +73,11 @@ export default function Profile({ navigation }) {
                     style={styles.background}>
 
                     <View style={styles.topMenuContainer}>
-                        <TouchableOpacity onPress={() => navigation.navigate('Login')} style={styles.exitButton}>
+                        <TouchableOpacity onPress={() => handleLogout()} style={styles.exitButton}>
                             <Text style={styles.exitButtonText}>Выйти</Text>
                         </TouchableOpacity>
 
                         <View style={styles.textButtonContainer}>
-
-
-
                             <TouchableOpacity onPress={decreaseFontSize} style={styles.resizeTextButton}>
                                 <Text style={styles.buttonTextResize}>A-</Text>
                             </TouchableOpacity>
@@ -78,7 +105,6 @@ export default function Profile({ navigation }) {
                     value={surname}
                     onChangeText={setSurname}
                     placeholderTextColor={'black'}
-                    secureTextEntry
                 />
 
                 <Text style={styles.pointName}>Дата рождения</Text>

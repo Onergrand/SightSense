@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, TextInput, TouchableOpacity, Image} from 'react-native';
 
 import {LinearGradient} from "expo-linear-gradient";
 import {useFontSize} from "../utils/utils";
 import {Dropdown} from "react-native-element-dropdown";
 import createProfileEditStyles from "../styles/profile-edit-styles";
+import { collection, getDocs, doc, setDoc } from "firebase/firestore";
+import {FIREBASE_AUTH, FIREBASE_DB} from "../firebaseConfig";
 
 
 export default function ProfileEdit({ navigation }) {
@@ -16,9 +18,36 @@ export default function ProfileEdit({ navigation }) {
 
     const styles = createProfileEditStyles(fontSize);
 
-    const saveAdditionalData = () => {
-        // add firebase register logic in future
-        console.log(name, surname, dateOfBirth, gender);
+    const handleUpdateUserData = async () => {
+        try {
+            const docRef = doc(FIREBASE_DB, "users", FIREBASE_AUTH.currentUser.uid, "data", "userData");
+            await setDoc(docRef, {
+                name: name,
+                surname: surname,
+                dateOfBirth: dateOfBirth,
+                gender: gender
+            });
+
+            navigation.navigate('Main');
+        } catch (e) {
+            console.error("Error updating document: ", e);
+        }
+    };
+
+    // Функция для получения данных пользователя из Firestore
+    const fetchUserData = async () => {
+        try {
+            const querySnapshot = await getDocs(collection(FIREBASE_DB, "users/" + FIREBASE_AUTH.currentUser.uid + "/data"));
+            if (!querySnapshot.empty) {
+                const user = querySnapshot.docs[0].data();
+                setName(user.name);
+                setSurname(user.surname);
+                setDateOfBirth(user.dateOfBirth);
+                setGender(user.gender);
+            }
+        } catch (error) {
+            console.error('Error fetching user data: ', error);
+        }
     };
 
     const decreaseFontSize = () => {
@@ -38,6 +67,10 @@ export default function ProfileEdit({ navigation }) {
             buttonResize: prevFontSize.buttonResize + 2,
         }));
     };
+
+    useEffect(() => {
+        fetchUserData();
+    }, []);
 
     return (
         <View style={styles.container}>
@@ -79,7 +112,6 @@ export default function ProfileEdit({ navigation }) {
                     value={surname}
                     onChangeText={setSurname}
                     placeholderTextColor={'black'}
-                    secureTextEntry
                 />
 
                 <Text style={styles.pointName}>Дата рождения</Text>
@@ -110,7 +142,7 @@ export default function ProfileEdit({ navigation }) {
                     onChange={item => setGender(item.value)}
                 />
 
-                <TouchableOpacity style={styles.changeDataButton}>
+                <TouchableOpacity style={styles.changeDataButton} onPress={() => handleUpdateUserData()}>
                     <Text style={styles.changeDataButtonText}>Сохранить</Text>
                 </TouchableOpacity>
 

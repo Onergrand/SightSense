@@ -5,16 +5,34 @@ import {LinearGradient} from "expo-linear-gradient";
 import {useFontSize} from "../utils/utils";
 import {Dropdown} from "react-native-element-dropdown";
 import createRegisterDataStyles from "../styles/register-data-styles";
+import {collection, doc, setDoc} from "firebase/firestore";
+import {FIREBASE_AUTH, FIREBASE_DB} from "../firebaseConfig";
 
 
 export default function RegisterData({ navigation }) {
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
     const [dateOfBirth, setDateOfBirth] = useState('');
-    const [gender, setGender] = useState('');
+    const [gender, setGender] = useState('unknown');
     const { fontSize, setFontSize } = useFontSize();
 
     const styles = createRegisterDataStyles(fontSize);
+
+    const handleRegisterData = async () => {
+        try {
+            const docRef = doc(FIREBASE_DB, "users", FIREBASE_AUTH.currentUser.uid, "data", "userData");
+            await setDoc(docRef, {
+                name: name,
+                surname: surname,
+                dateOfBirth: dateOfBirth,
+                gender: gender
+            });
+
+            navigation.navigate('Profile');
+        } catch (e) {
+            console.error("Error adding document: ", e);
+        }
+    }
 
     const decreaseFontSize = () => {
         setFontSize(prevFontSize => ({
@@ -68,11 +86,11 @@ export default function RegisterData({ navigation }) {
                     value={surname}
                     onChangeText={setSurname}
                     placeholderTextColor={'black'}
-                    secureTextEntry
                 />
                 <TextInput
                     style={styles.input}
                     placeholder="дата рождения"
+                    textContentType={"birthdate"}
                     value={dateOfBirth}
                     onChangeText={(date) => setDateOfBirth(date)}
                     placeholderTextColor={'black'}
@@ -96,7 +114,7 @@ export default function RegisterData({ navigation }) {
                     onChange={item => setGender(item.value)}
                 />
 
-                <TouchableOpacity onPress={() => navigation.navigate('Main')} style={styles.saveDataButton}>
+                <TouchableOpacity onPress={() => handleRegisterData()} style={styles.saveDataButton}>
                     <Text style={styles.saveDataButtonText}>продолжить</Text>
                 </TouchableOpacity>
             </View>

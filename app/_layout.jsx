@@ -13,7 +13,7 @@ import RegisterData from "./tabs/register-data";
 const Stack = createStackNavigator();
 
 export default function RootLayout() {
-    const [fontsLoaded] = useFonts({
+        const [fontsLoaded] = useFonts({
         MontserratRegular: require('../assets/fonts/Montserrat-Regular.ttf'),
         MontserratMedium: require('../assets/fonts/Montserrat-Medium.ttf'),
         MontserratBold: require('../assets/fonts/Montserrat-Bold.ttf'),

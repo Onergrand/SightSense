@@ -28,7 +28,7 @@ export default function RegisterData({ navigation }) {
                 gender: gender
             });
 
-            navigation.navigate('Profile');
+            navigation.navigate('Main');
         } catch (e) {
             console.error("Error adding document: ", e);
         }

@@ -25,7 +25,7 @@ const createRegisterStyles = (fontSize) => StyleSheet.create({
 
         height: 'auto',
 
-        marginTop: '15%',
+        marginTop: '5%',
     },
     resizeTextButton: {
         width: '20%',

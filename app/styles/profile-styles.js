@@ -20,7 +20,7 @@ const createProfileStyles = (fontSize) => StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
 
-        marginTop: '15%',
+        marginTop: '5%',
     },
     overlay: {
         width: '100%',

@@ -20,7 +20,7 @@ const createProfileEditStyles = (fontSize) => StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'flex-end',
 
-        marginTop: '15%',
+        marginTop: '5%',
     },
     overlay: {
         width: '100%',

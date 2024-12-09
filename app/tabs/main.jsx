@@ -67,7 +67,7 @@ export default function Main({ navigation }) {
 
     async function callSonificateImage(imageBase64, mode, contrast) {
         try {
-            const response = await fetch('https://4017-5-2-55-78.ngrok-free.app/remake', {
+            const response = await fetch('https://bef3-5-2-55-78.ngrok-free.app/remake', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

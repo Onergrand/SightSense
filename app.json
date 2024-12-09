@@ -3,10 +3,12 @@
     "name": "SightSense",
     "slug": "sightsense",
     "version": "1.0.0",
+    "sdkVersion": "52.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "sightsense",
     "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
     "splash": {
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"

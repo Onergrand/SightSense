@@ -1,0 +1,362 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.onergrand.sightsense"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="24"
+9        android:targetSdkVersion="35" />
+10
+11    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+11-->C:\TestProjects\urfu_react_native\android\app\src\main\AndroidManifest.xml:5:3-75
+11-->C:\TestProjects\urfu_react_native\android\app\src\main\AndroidManifest.xml:5:20-73
+12    <uses-permission android:name="android.permission.INTERNET" />
+12-->C:\TestProjects\urfu_react_native\android\app\src\main\AndroidManifest.xml:3:3-64
+12-->C:\TestProjects\urfu_react_native\android\app\src\main\AndroidManifest.xml:3:20-62
+13    <uses-permission android:name="android.permission.VIBRATE" /> <!-- These require runtime permissions on M -->
+13-->C:\TestProjects\urfu_react_native\android\app\src\main\AndroidManifest.xml:6:3-63
+13-->C:\TestProjects\urfu_react_native\android\app\src\main\AndroidManifest.xml:6:20-61
+14    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+14-->C:\TestProjects\urfu_react_native\android\app\src\main\AndroidManifest.xml:8:3-77
+14-->C:\TestProjects\urfu_react_native\android\app\src\main\AndroidManifest.xml:8:20-75
+15    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- END OPTIONAL PERMISSIONS -->
+15-->C:\TestProjects\urfu_react_native\android\app\src\main\AndroidManifest.xml:9:3-78
+15-->C:\TestProjects\urfu_react_native\android\app\src\main\AndroidManifest.xml:9:20-76
+16    <queries>
+16-->C:\TestProjects\urfu_react_native\android\app\src\main\AndroidManifest.xml:13:3-20:13
+17
+18        <!-- Support checking for http(s) links via the Linking API -->
+19        <intent>
+19-->C:\TestProjects\urfu_react_native\android\app\src\main\AndroidManifest.xml:15:5-19:14
+20            <action android:name="android.intent.action.VIEW" />
+20-->C:\TestProjects\urfu_react_native\android\app\src\main\AndroidManifest.xml:16:7-59
+20-->C:\TestProjects\urfu_react_native\android\app\src\main\AndroidManifest.xml:16:15-56
+21
+22            <category android:name="android.intent.category.BROWSABLE" />
+22-->C:\TestProjects\urfu_react_native\android\app\src\main\AndroidManifest.xml:17:7-68
+22-->C:\TestProjects\urfu_react_native\android\app\src\main\AndroidManifest.xml:17:17-65
+23
+24            <data android:scheme="https" />
+24-->C:\TestProjects\urfu_react_native\android\app\src\main\AndroidManifest.xml:18:7-38
+24-->C:\TestProjects\urfu_react_native\android\app\src\main\AndroidManifest.xml:18:13-35
+25        </intent>
+26        <!-- Query open documents -->
+27        <intent>
+27-->[:expo-file-system] C:\TestProjects\urfu_react_native\node_modules\expo-file-system\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:15:9-17:18
+28            <action android:name="android.intent.action.OPEN_DOCUMENT_TREE" />
+28-->[:expo-file-system] C:\TestProjects\urfu_react_native\node_modules\expo-file-system\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:16:13-79
+28-->[:expo-file-system] C:\TestProjects\urfu_react_native\node_modules\expo-file-system\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:16:21-76
+29        </intent>
+30        <intent>
+30-->[:expo-web-browser] C:\TestProjects\urfu_react_native\node_modules\expo-web-browser\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:8:9-12:18
+31
+32            <!-- Required for opening tabs if targeting API 30 -->
+33            <action android:name="android.support.customtabs.action.CustomTabsService" />
+33-->[:expo-web-browser] C:\TestProjects\urfu_react_native\node_modules\expo-web-browser\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:11:13-90
+33-->[:expo-web-browser] C:\TestProjects\urfu_react_native\node_modules\expo-web-browser\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:11:21-87
+34        </intent>
+35        <intent>
+35-->[androidx.camera:camera-extensions:1.5.0-alpha03] C:\Users\savel\.gradle\caches\8.11.1\transforms\6c8f887774d78c6812315822d6ae71e2\transformed\jetified-camera-extensions-1.5.0-alpha03\AndroidManifest.xml:23:9-25:18
+36            <action android:name="androidx.camera.extensions.action.VENDOR_ACTION" />
+36-->[androidx.camera:camera-extensions:1.5.0-alpha03] C:\Users\savel\.gradle\caches\8.11.1\transforms\6c8f887774d78c6812315822d6ae71e2\transformed\jetified-camera-extensions-1.5.0-alpha03\AndroidManifest.xml:24:13-86
+36-->[androidx.camera:camera-extensions:1.5.0-alpha03] C:\Users\savel\.gradle\caches\8.11.1\transforms\6c8f887774d78c6812315822d6ae71e2\transformed\jetified-camera-extensions-1.5.0-alpha03\AndroidManifest.xml:24:21-83
+37        </intent>
+38    </queries>
+39
+40    <uses-permission android:name="android.permission.CAMERA" />
+40-->[:expo-camera] C:\TestProjects\urfu_react_native\node_modules\expo-camera\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:7:5-65
+40-->[:expo-camera] C:\TestProjects\urfu_react_native\node_modules\expo-camera\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:7:22-62
+41    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+41-->[:expo-camera] C:\TestProjects\urfu_react_native\node_modules\expo-camera\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:8:5-71
+41-->[:expo-camera] C:\TestProjects\urfu_react_native\node_modules\expo-camera\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:8:22-68
+42    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+42-->[com.google.android.exoplayer:exoplayer-core:2.18.1] C:\Users\savel\.gradle\caches\8.11.1\transforms\2c40e8291ab1c531b5224689cc948bb3\transformed\jetified-exoplayer-core-2.18.1\AndroidManifest.xml:24:5-79
+42-->[com.google.android.exoplayer:exoplayer-core:2.18.1] C:\Users\savel\.gradle\caches\8.11.1\transforms\2c40e8291ab1c531b5224689cc948bb3\transformed\jetified-exoplayer-core-2.18.1\AndroidManifest.xml:24:22-76
+43
+44    <permission
+44-->[androidx.core:core:1.13.1] C:\Users\savel\.gradle\caches\8.11.1\transforms\21fd914deb3343db1251530217c19e85\transformed\core-1.13.1\AndroidManifest.xml:22:5-24:47
+45        android:name="com.onergrand.sightsense.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+45-->[androidx.core:core:1.13.1] C:\Users\savel\.gradle\caches\8.11.1\transforms\21fd914deb3343db1251530217c19e85\transformed\core-1.13.1\AndroidManifest.xml:23:9-81
+46        android:protectionLevel="signature" />
+46-->[androidx.core:core:1.13.1] C:\Users\savel\.gradle\caches\8.11.1\transforms\21fd914deb3343db1251530217c19e85\transformed\core-1.13.1\AndroidManifest.xml:24:9-44
+47
+48    <uses-permission android:name="com.onergrand.sightsense.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+48-->[androidx.core:core:1.13.1] C:\Users\savel\.gradle\caches\8.11.1\transforms\21fd914deb3343db1251530217c19e85\transformed\core-1.13.1\AndroidManifest.xml:26:5-97
+48-->[androidx.core:core:1.13.1] C:\Users\savel\.gradle\caches\8.11.1\transforms\21fd914deb3343db1251530217c19e85\transformed\core-1.13.1\AndroidManifest.xml:26:22-94
+49
+50    <application
+50-->C:\TestProjects\urfu_react_native\android\app\src\main\AndroidManifest.xml:22:3-30:17
+51        android:name="com.onergrand.sightsense.MainApplication"
+51-->C:\TestProjects\urfu_react_native\android\app\src\main\AndroidManifest.xml:22:16-47
+52        android:allowBackup="false"
+52-->C:\TestProjects\urfu_react_native\android\app\src\main\AndroidManifest.xml:22:162-189
+53        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+53-->[androidx.core:core:1.13.1] C:\Users\savel\.gradle\caches\8.11.1\transforms\21fd914deb3343db1251530217c19e85\transformed\core-1.13.1\AndroidManifest.xml:28:18-86
+54        android:debuggable="true"
+55        android:extractNativeLibs="false"
+56        android:icon="@mipmap/ic_launcher"
+56-->C:\TestProjects\urfu_react_native\android\app\src\main\AndroidManifest.xml:22:81-115
+57        android:label="@string/app_name"
+57-->C:\TestProjects\urfu_react_native\android\app\src\main\AndroidManifest.xml:22:48-80
+58        android:roundIcon="@mipmap/ic_launcher_round"
+58-->C:\TestProjects\urfu_react_native\android\app\src\main\AndroidManifest.xml:22:116-161
+59        android:theme="@style/AppTheme"
+59-->C:\TestProjects\urfu_react_native\android\app\src\main\AndroidManifest.xml:22:190-221
+60        android:usesCleartextTraffic="true" >
+60-->C:\TestProjects\urfu_react_native\android\app\src\debug\AndroidManifest.xml:6:18-53
+61        <activity
+61-->C:\TestProjects\urfu_react_native\android\app\src\main\AndroidManifest.xml:23:5-28:16
+62            android:name="com.onergrand.sightsense.MainActivity"
+62-->C:\TestProjects\urfu_react_native\android\app\src\main\AndroidManifest.xml:23:15-43
+63            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|uiMode"
+63-->C:\TestProjects\urfu_react_native\android\app\src\main\AndroidManifest.xml:23:44-134
+64            android:exported="true"
+64-->C:\TestProjects\urfu_react_native\android\app\src\main\AndroidManifest.xml:23:256-279
+65            android:launchMode="singleTask"
+65-->C:\TestProjects\urfu_react_native\android\app\src\main\AndroidManifest.xml:23:135-166
+66            android:theme="@style/Theme.App.SplashScreen"
+66-->C:\TestProjects\urfu_react_native\android\app\src\main\AndroidManifest.xml:23:210-255
+67            android:windowSoftInputMode="adjustResize" >
+67-->C:\TestProjects\urfu_react_native\android\app\src\main\AndroidManifest.xml:23:167-209
+68            <intent-filter>
+68-->C:\TestProjects\urfu_react_native\android\app\src\main\AndroidManifest.xml:24:7-27:23
+69                <action android:name="android.intent.action.MAIN" />
+69-->C:\TestProjects\urfu_react_native\android\app\src\main\AndroidManifest.xml:25:9-60
+69-->C:\TestProjects\urfu_react_native\android\app\src\main\AndroidManifest.xml:25:17-58
+70
+71                <category android:name="android.intent.category.LAUNCHER" />
+71-->C:\TestProjects\urfu_react_native\android\app\src\main\AndroidManifest.xml:26:9-68
+71-->C:\TestProjects\urfu_react_native\android\app\src\main\AndroidManifest.xml:26:19-66
+72            </intent-filter>
+73        </activity>
+74        <activity
+74-->C:\TestProjects\urfu_react_native\android\app\src\main\AndroidManifest.xml:29:5-106
+75            android:name="com.facebook.react.devsupport.DevSettingsActivity"
+75-->C:\TestProjects\urfu_react_native\android\app\src\main\AndroidManifest.xml:29:15-79
+76            android:exported="false" />
+76-->C:\TestProjects\urfu_react_native\android\app\src\main\AndroidManifest.xml:29:80-104
+77
+78        <provider
+78-->[:react-native-image-picker] C:\TestProjects\urfu_react_native\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:8:9-16:20
+79            android:name="com.imagepicker.ImagePickerProvider"
+79-->[:react-native-image-picker] C:\TestProjects\urfu_react_native\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:9:13-63
+80            android:authorities="com.onergrand.sightsense.imagepickerprovider"
+80-->[:react-native-image-picker] C:\TestProjects\urfu_react_native\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:10:13-71
+81            android:exported="false"
+81-->[:react-native-image-picker] C:\TestProjects\urfu_react_native\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:11:13-37
+82            android:grantUriPermissions="true" >
+82-->[:react-native-image-picker] C:\TestProjects\urfu_react_native\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:12:13-47
+83            <meta-data
+83-->[:react-native-image-picker] C:\TestProjects\urfu_react_native\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:13:13-15:70
+84                android:name="android.support.FILE_PROVIDER_PATHS"
+84-->[:react-native-image-picker] C:\TestProjects\urfu_react_native\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:14:17-67
+85                android:resource="@xml/imagepicker_provider_paths" />
+85-->[:react-native-image-picker] C:\TestProjects\urfu_react_native\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:15:17-67
+86        </provider>
+87        <provider
+87-->[:expo-file-system] C:\TestProjects\urfu_react_native\node_modules\expo-file-system\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:21:9-30:20
+88            android:name="expo.modules.filesystem.FileSystemFileProvider"
+88-->[:expo-file-system] C:\TestProjects\urfu_react_native\node_modules\expo-file-system\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:22:13-74
+89            android:authorities="com.onergrand.sightsense.FileSystemFileProvider"
+89-->[:expo-file-system] C:\TestProjects\urfu_react_native\node_modules\expo-file-system\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:23:13-74
+90            android:exported="false"
+90-->[:expo-file-system] C:\TestProjects\urfu_react_native\node_modules\expo-file-system\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:24:13-37
+91            android:grantUriPermissions="true" >
+91-->[:expo-file-system] C:\TestProjects\urfu_react_native\node_modules\expo-file-system\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:25:13-47
+92            <meta-data
+92-->[:react-native-image-picker] C:\TestProjects\urfu_react_native\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:13:13-15:70
+93                android:name="android.support.FILE_PROVIDER_PATHS"
+93-->[:react-native-image-picker] C:\TestProjects\urfu_react_native\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:14:17-67
+94                android:resource="@xml/file_system_provider_paths" />
+94-->[:react-native-image-picker] C:\TestProjects\urfu_react_native\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:15:17-67
+95        </provider>
+96
+97        <meta-data
+97-->[:expo-modules-core] C:\TestProjects\urfu_react_native\node_modules\expo-modules-core\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:9:9-11:89
+98            android:name="org.unimodules.core.AppLoader#react-native-headless"
+98-->[:expo-modules-core] C:\TestProjects\urfu_react_native\node_modules\expo-modules-core\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:10:13-79
+99            android:value="expo.modules.adapters.react.apploader.RNHeadlessAppLoader" />
+99-->[:expo-modules-core] C:\TestProjects\urfu_react_native\node_modules\expo-modules-core\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:11:13-86
+100        <meta-data
+100-->[:expo-modules-core] C:\TestProjects\urfu_react_native\node_modules\expo-modules-core\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:12:9-15:45
+101            android:name="com.facebook.soloader.enabled"
+101-->[:expo-modules-core] C:\TestProjects\urfu_react_native\node_modules\expo-modules-core\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:13:13-57
+102            android:value="true" />
+102-->[:expo-modules-core] C:\TestProjects\urfu_react_native\node_modules\expo-modules-core\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:14:13-33
+103
+104        <uses-library
+104-->[androidx.camera:camera-extensions:1.5.0-alpha03] C:\Users\savel\.gradle\caches\8.11.1\transforms\6c8f887774d78c6812315822d6ae71e2\transformed\jetified-camera-extensions-1.5.0-alpha03\AndroidManifest.xml:29:9-31:40
+105            android:name="androidx.camera.extensions.impl"
+105-->[androidx.camera:camera-extensions:1.5.0-alpha03] C:\Users\savel\.gradle\caches\8.11.1\transforms\6c8f887774d78c6812315822d6ae71e2\transformed\jetified-camera-extensions-1.5.0-alpha03\AndroidManifest.xml:30:13-59
+106            android:required="false" />
+106-->[androidx.camera:camera-extensions:1.5.0-alpha03] C:\Users\savel\.gradle\caches\8.11.1\transforms\6c8f887774d78c6812315822d6ae71e2\transformed\jetified-camera-extensions-1.5.0-alpha03\AndroidManifest.xml:31:13-37
+107
+108        <service
+108-->[androidx.camera:camera-camera2:1.5.0-alpha03] C:\Users\savel\.gradle\caches\8.11.1\transforms\72921ef8e876c0b82fe0e3ec51fa3d93\transformed\jetified-camera-camera2-1.5.0-alpha03\AndroidManifest.xml:24:9-33:19
+109            android:name="androidx.camera.core.impl.MetadataHolderService"
+109-->[androidx.camera:camera-camera2:1.5.0-alpha03] C:\Users\savel\.gradle\caches\8.11.1\transforms\72921ef8e876c0b82fe0e3ec51fa3d93\transformed\jetified-camera-camera2-1.5.0-alpha03\AndroidManifest.xml:25:13-75
+110            android:enabled="false"
+110-->[androidx.camera:camera-camera2:1.5.0-alpha03] C:\Users\savel\.gradle\caches\8.11.1\transforms\72921ef8e876c0b82fe0e3ec51fa3d93\transformed\jetified-camera-camera2-1.5.0-alpha03\AndroidManifest.xml:26:13-36
+111            android:exported="false" >
+111-->[androidx.camera:camera-camera2:1.5.0-alpha03] C:\Users\savel\.gradle\caches\8.11.1\transforms\72921ef8e876c0b82fe0e3ec51fa3d93\transformed\jetified-camera-camera2-1.5.0-alpha03\AndroidManifest.xml:27:13-37
+112            <meta-data
+112-->[androidx.camera:camera-camera2:1.5.0-alpha03] C:\Users\savel\.gradle\caches\8.11.1\transforms\72921ef8e876c0b82fe0e3ec51fa3d93\transformed\jetified-camera-camera2-1.5.0-alpha03\AndroidManifest.xml:30:13-32:89
+113                android:name="androidx.camera.core.impl.MetadataHolderService.DEFAULT_CONFIG_PROVIDER"
+113-->[androidx.camera:camera-camera2:1.5.0-alpha03] C:\Users\savel\.gradle\caches\8.11.1\transforms\72921ef8e876c0b82fe0e3ec51fa3d93\transformed\jetified-camera-camera2-1.5.0-alpha03\AndroidManifest.xml:31:17-103
+114                android:value="androidx.camera.camera2.Camera2Config$DefaultProvider" />
+114-->[androidx.camera:camera-camera2:1.5.0-alpha03] C:\Users\savel\.gradle\caches\8.11.1\transforms\72921ef8e876c0b82fe0e3ec51fa3d93\transformed\jetified-camera-camera2-1.5.0-alpha03\AndroidManifest.xml:32:17-86
+115        </service>
+116        <service
+116-->[com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.1] C:\Users\savel\.gradle\caches\8.11.1\transforms\3597113264beda91632af118441fba5b\transformed\jetified-play-services-mlkit-barcode-scanning-18.3.1\AndroidManifest.xml:9:9-15:19
+117            android:name="com.google.mlkit.common.internal.MlKitComponentDiscoveryService"
+117-->[com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.1] C:\Users\savel\.gradle\caches\8.11.1\transforms\3597113264beda91632af118441fba5b\transformed\jetified-play-services-mlkit-barcode-scanning-18.3.1\AndroidManifest.xml:10:13-91
+118            android:directBootAware="true"
+118-->[com.google.mlkit:common:18.11.0] C:\Users\savel\.gradle\caches\8.11.1\transforms\034af07fb4e4a843e140716d7c547299\transformed\jetified-common-18.11.0\AndroidManifest.xml:17:13-43
+119            android:exported="false" >
+119-->[com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.1] C:\Users\savel\.gradle\caches\8.11.1\transforms\3597113264beda91632af118441fba5b\transformed\jetified-play-services-mlkit-barcode-scanning-18.3.1\AndroidManifest.xml:11:13-37
+120            <meta-data
+120-->[com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.1] C:\Users\savel\.gradle\caches\8.11.1\transforms\3597113264beda91632af118441fba5b\transformed\jetified-play-services-mlkit-barcode-scanning-18.3.1\AndroidManifest.xml:12:13-14:85
+121                android:name="com.google.firebase.components:com.google.mlkit.vision.barcode.internal.BarcodeRegistrar"
+121-->[com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.1] C:\Users\savel\.gradle\caches\8.11.1\transforms\3597113264beda91632af118441fba5b\transformed\jetified-play-services-mlkit-barcode-scanning-18.3.1\AndroidManifest.xml:13:17-120
+122                android:value="com.google.firebase.components.ComponentRegistrar" />
+122-->[com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.1] C:\Users\savel\.gradle\caches\8.11.1\transforms\3597113264beda91632af118441fba5b\transformed\jetified-play-services-mlkit-barcode-scanning-18.3.1\AndroidManifest.xml:14:17-82
+123            <meta-data
+123-->[com.google.mlkit:vision-common:17.3.0] C:\Users\savel\.gradle\caches\8.11.1\transforms\5fb0e958267f45d9272ad1989cdb4acd\transformed\jetified-vision-common-17.3.0\AndroidManifest.xml:12:13-14:85
+124                android:name="com.google.firebase.components:com.google.mlkit.vision.common.internal.VisionCommonRegistrar"
+124-->[com.google.mlkit:vision-common:17.3.0] C:\Users\savel\.gradle\caches\8.11.1\transforms\5fb0e958267f45d9272ad1989cdb4acd\transformed\jetified-vision-common-17.3.0\AndroidManifest.xml:13:17-124
+125                android:value="com.google.firebase.components.ComponentRegistrar" />
+125-->[com.google.mlkit:vision-common:17.3.0] C:\Users\savel\.gradle\caches\8.11.1\transforms\5fb0e958267f45d9272ad1989cdb4acd\transformed\jetified-vision-common-17.3.0\AndroidManifest.xml:14:17-82
+126            <meta-data
+126-->[com.google.mlkit:common:18.11.0] C:\Users\savel\.gradle\caches\8.11.1\transforms\034af07fb4e4a843e140716d7c547299\transformed\jetified-common-18.11.0\AndroidManifest.xml:20:13-22:85
+127                android:name="com.google.firebase.components:com.google.mlkit.common.internal.CommonComponentRegistrar"
+127-->[com.google.mlkit:common:18.11.0] C:\Users\savel\.gradle\caches\8.11.1\transforms\034af07fb4e4a843e140716d7c547299\transformed\jetified-common-18.11.0\AndroidManifest.xml:21:17-120
+128                android:value="com.google.firebase.components.ComponentRegistrar" />
+128-->[com.google.mlkit:common:18.11.0] C:\Users\savel\.gradle\caches\8.11.1\transforms\034af07fb4e4a843e140716d7c547299\transformed\jetified-common-18.11.0\AndroidManifest.xml:22:17-82
+129        </service>
+130
+131        <provider
+131-->[com.google.mlkit:common:18.11.0] C:\Users\savel\.gradle\caches\8.11.1\transforms\034af07fb4e4a843e140716d7c547299\transformed\jetified-common-18.11.0\AndroidManifest.xml:9:9-13:38
+132            android:name="com.google.mlkit.common.internal.MlKitInitProvider"
+132-->[com.google.mlkit:common:18.11.0] C:\Users\savel\.gradle\caches\8.11.1\transforms\034af07fb4e4a843e140716d7c547299\transformed\jetified-common-18.11.0\AndroidManifest.xml:10:13-78
+133            android:authorities="com.onergrand.sightsense.mlkitinitprovider"
+133-->[com.google.mlkit:common:18.11.0] C:\Users\savel\.gradle\caches\8.11.1\transforms\034af07fb4e4a843e140716d7c547299\transformed\jetified-common-18.11.0\AndroidManifest.xml:11:13-69
+134            android:exported="false"
+134-->[com.google.mlkit:common:18.11.0] C:\Users\savel\.gradle\caches\8.11.1\transforms\034af07fb4e4a843e140716d7c547299\transformed\jetified-common-18.11.0\AndroidManifest.xml:12:13-37
+135            android:initOrder="99" />
+135-->[com.google.mlkit:common:18.11.0] C:\Users\savel\.gradle\caches\8.11.1\transforms\034af07fb4e4a843e140716d7c547299\transformed\jetified-common-18.11.0\AndroidManifest.xml:13:13-35
+136
+137        <activity
+137-->[com.google.android.gms:play-services-base:18.5.0] C:\Users\savel\.gradle\caches\8.11.1\transforms\c1a44eae7722c4fe63b3bbb3fa9bb184\transformed\jetified-play-services-base-18.5.0\AndroidManifest.xml:5:9-173
+138            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+138-->[com.google.android.gms:play-services-base:18.5.0] C:\Users\savel\.gradle\caches\8.11.1\transforms\c1a44eae7722c4fe63b3bbb3fa9bb184\transformed\jetified-play-services-base-18.5.0\AndroidManifest.xml:5:19-85
+139            android:exported="false"
+139-->[com.google.android.gms:play-services-base:18.5.0] C:\Users\savel\.gradle\caches\8.11.1\transforms\c1a44eae7722c4fe63b3bbb3fa9bb184\transformed\jetified-play-services-base-18.5.0\AndroidManifest.xml:5:146-170
+140            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+140-->[com.google.android.gms:play-services-base:18.5.0] C:\Users\savel\.gradle\caches\8.11.1\transforms\c1a44eae7722c4fe63b3bbb3fa9bb184\transformed\jetified-play-services-base-18.5.0\AndroidManifest.xml:5:86-145
+141
+142        <meta-data
+142-->[com.google.android.gms:play-services-basement:18.4.0] C:\Users\savel\.gradle\caches\8.11.1\transforms\667ee77a176f1be5eb7c5cf8fc521171\transformed\jetified-play-services-basement-18.4.0\AndroidManifest.xml:6:9-122
+143            android:name="com.google.android.gms.version"
+143-->[com.google.android.gms:play-services-basement:18.4.0] C:\Users\savel\.gradle\caches\8.11.1\transforms\667ee77a176f1be5eb7c5cf8fc521171\transformed\jetified-play-services-basement-18.4.0\AndroidManifest.xml:6:20-65
+144            android:value="@integer/google_play_services_version" />
+144-->[com.google.android.gms:play-services-basement:18.4.0] C:\Users\savel\.gradle\caches\8.11.1\transforms\667ee77a176f1be5eb7c5cf8fc521171\transformed\jetified-play-services-basement-18.4.0\AndroidManifest.xml:6:66-119
+145
+146        <provider
+146-->[androidx.emoji2:emoji2:1.3.0] C:\Users\savel\.gradle\caches\8.11.1\transforms\9c023ef1a949a5c3c42fb847d89a2e2d\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:24:9-32:20
+147            android:name="androidx.startup.InitializationProvider"
+147-->[androidx.emoji2:emoji2:1.3.0] C:\Users\savel\.gradle\caches\8.11.1\transforms\9c023ef1a949a5c3c42fb847d89a2e2d\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:25:13-67
+148            android:authorities="com.onergrand.sightsense.androidx-startup"
+148-->[androidx.emoji2:emoji2:1.3.0] C:\Users\savel\.gradle\caches\8.11.1\transforms\9c023ef1a949a5c3c42fb847d89a2e2d\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:26:13-68
+149            android:exported="false" >
+149-->[androidx.emoji2:emoji2:1.3.0] C:\Users\savel\.gradle\caches\8.11.1\transforms\9c023ef1a949a5c3c42fb847d89a2e2d\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:27:13-37
+150            <meta-data
+150-->[androidx.emoji2:emoji2:1.3.0] C:\Users\savel\.gradle\caches\8.11.1\transforms\9c023ef1a949a5c3c42fb847d89a2e2d\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:29:13-31:52
+151                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+151-->[androidx.emoji2:emoji2:1.3.0] C:\Users\savel\.gradle\caches\8.11.1\transforms\9c023ef1a949a5c3c42fb847d89a2e2d\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:30:17-75
+152                android:value="androidx.startup" />
+152-->[androidx.emoji2:emoji2:1.3.0] C:\Users\savel\.gradle\caches\8.11.1\transforms\9c023ef1a949a5c3c42fb847d89a2e2d\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:31:17-49
+153            <meta-data
+153-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\savel\.gradle\caches\8.11.1\transforms\5ded0445f6cd41906f5f82115c5d6b74\transformed\jetified-lifecycle-process-2.6.2\AndroidManifest.xml:29:13-31:52
+154                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+154-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\savel\.gradle\caches\8.11.1\transforms\5ded0445f6cd41906f5f82115c5d6b74\transformed\jetified-lifecycle-process-2.6.2\AndroidManifest.xml:30:17-78
+155                android:value="androidx.startup" />
+155-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\savel\.gradle\caches\8.11.1\transforms\5ded0445f6cd41906f5f82115c5d6b74\transformed\jetified-lifecycle-process-2.6.2\AndroidManifest.xml:31:17-49
+156            <meta-data
+156-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\savel\.gradle\caches\8.11.1\transforms\7e4ab1ec4e2fdfdfb8e6a0bf15adab0b\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:29:13-31:52
+157                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+157-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\savel\.gradle\caches\8.11.1\transforms\7e4ab1ec4e2fdfdfb8e6a0bf15adab0b\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:30:17-85
+158                android:value="androidx.startup" />
+158-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\savel\.gradle\caches\8.11.1\transforms\7e4ab1ec4e2fdfdfb8e6a0bf15adab0b\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:31:17-49
+159        </provider>
+160
+161        <receiver
+161-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\savel\.gradle\caches\8.11.1\transforms\7e4ab1ec4e2fdfdfb8e6a0bf15adab0b\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:34:9-52:20
+162            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+162-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\savel\.gradle\caches\8.11.1\transforms\7e4ab1ec4e2fdfdfb8e6a0bf15adab0b\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:35:13-76
+163            android:directBootAware="false"
+163-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\savel\.gradle\caches\8.11.1\transforms\7e4ab1ec4e2fdfdfb8e6a0bf15adab0b\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:36:13-44
+164            android:enabled="true"
+164-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\savel\.gradle\caches\8.11.1\transforms\7e4ab1ec4e2fdfdfb8e6a0bf15adab0b\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:37:13-35
+165            android:exported="true"
+165-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\savel\.gradle\caches\8.11.1\transforms\7e4ab1ec4e2fdfdfb8e6a0bf15adab0b\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:38:13-36
+166            android:permission="android.permission.DUMP" >
+166-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\savel\.gradle\caches\8.11.1\transforms\7e4ab1ec4e2fdfdfb8e6a0bf15adab0b\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:39:13-57
+167            <intent-filter>
+167-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\savel\.gradle\caches\8.11.1\transforms\7e4ab1ec4e2fdfdfb8e6a0bf15adab0b\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:40:13-42:29
+168                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+168-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\savel\.gradle\caches\8.11.1\transforms\7e4ab1ec4e2fdfdfb8e6a0bf15adab0b\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:41:17-91
+168-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\savel\.gradle\caches\8.11.1\transforms\7e4ab1ec4e2fdfdfb8e6a0bf15adab0b\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:41:25-88
+169            </intent-filter>
+170            <intent-filter>
+170-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\savel\.gradle\caches\8.11.1\transforms\7e4ab1ec4e2fdfdfb8e6a0bf15adab0b\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:43:13-45:29
+171                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+171-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\savel\.gradle\caches\8.11.1\transforms\7e4ab1ec4e2fdfdfb8e6a0bf15adab0b\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:44:17-85
+171-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\savel\.gradle\caches\8.11.1\transforms\7e4ab1ec4e2fdfdfb8e6a0bf15adab0b\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:44:25-82
+172            </intent-filter>
+173            <intent-filter>
+173-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\savel\.gradle\caches\8.11.1\transforms\7e4ab1ec4e2fdfdfb8e6a0bf15adab0b\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:46:13-48:29
+174                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+174-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\savel\.gradle\caches\8.11.1\transforms\7e4ab1ec4e2fdfdfb8e6a0bf15adab0b\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:47:17-88
+174-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\savel\.gradle\caches\8.11.1\transforms\7e4ab1ec4e2fdfdfb8e6a0bf15adab0b\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:47:25-85
+175            </intent-filter>
+176            <intent-filter>
+176-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\savel\.gradle\caches\8.11.1\transforms\7e4ab1ec4e2fdfdfb8e6a0bf15adab0b\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:49:13-51:29
+177                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+177-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\savel\.gradle\caches\8.11.1\transforms\7e4ab1ec4e2fdfdfb8e6a0bf15adab0b\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:50:17-95
+177-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\savel\.gradle\caches\8.11.1\transforms\7e4ab1ec4e2fdfdfb8e6a0bf15adab0b\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:50:25-92
+178            </intent-filter>
+179        </receiver>
+180
+181        <service
+181-->[com.google.android.datatransport:transport-backend-cct:2.3.3] C:\Users\savel\.gradle\caches\8.11.1\transforms\9145328f6f16a702db3b5c9fe225f4b6\transformed\jetified-transport-backend-cct-2.3.3\AndroidManifest.xml:29:9-35:19
+182            android:name="com.google.android.datatransport.runtime.backends.TransportBackendDiscovery"
+182-->[com.google.android.datatransport:transport-backend-cct:2.3.3] C:\Users\savel\.gradle\caches\8.11.1\transforms\9145328f6f16a702db3b5c9fe225f4b6\transformed\jetified-transport-backend-cct-2.3.3\AndroidManifest.xml:30:13-103
+183            android:exported="false" >
+183-->[com.google.android.datatransport:transport-backend-cct:2.3.3] C:\Users\savel\.gradle\caches\8.11.1\transforms\9145328f6f16a702db3b5c9fe225f4b6\transformed\jetified-transport-backend-cct-2.3.3\AndroidManifest.xml:31:13-37
+184            <meta-data
+184-->[com.google.android.datatransport:transport-backend-cct:2.3.3] C:\Users\savel\.gradle\caches\8.11.1\transforms\9145328f6f16a702db3b5c9fe225f4b6\transformed\jetified-transport-backend-cct-2.3.3\AndroidManifest.xml:32:13-34:39
+185                android:name="backend:com.google.android.datatransport.cct.CctBackendFactory"
+185-->[com.google.android.datatransport:transport-backend-cct:2.3.3] C:\Users\savel\.gradle\caches\8.11.1\transforms\9145328f6f16a702db3b5c9fe225f4b6\transformed\jetified-transport-backend-cct-2.3.3\AndroidManifest.xml:33:17-94
+186                android:value="cct" />
+186-->[com.google.android.datatransport:transport-backend-cct:2.3.3] C:\Users\savel\.gradle\caches\8.11.1\transforms\9145328f6f16a702db3b5c9fe225f4b6\transformed\jetified-transport-backend-cct-2.3.3\AndroidManifest.xml:34:17-36
+187        </service>
+188        <service
+188-->[com.google.android.datatransport:transport-runtime:2.2.6] C:\Users\savel\.gradle\caches\8.11.1\transforms\f1735fc83b0874bb74bbc211fc1f867b\transformed\jetified-transport-runtime-2.2.6\AndroidManifest.xml:26:9-30:19
+189            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
+189-->[com.google.android.datatransport:transport-runtime:2.2.6] C:\Users\savel\.gradle\caches\8.11.1\transforms\f1735fc83b0874bb74bbc211fc1f867b\transformed\jetified-transport-runtime-2.2.6\AndroidManifest.xml:27:13-117
+190            android:exported="false"
+190-->[com.google.android.datatransport:transport-runtime:2.2.6] C:\Users\savel\.gradle\caches\8.11.1\transforms\f1735fc83b0874bb74bbc211fc1f867b\transformed\jetified-transport-runtime-2.2.6\AndroidManifest.xml:28:13-37
+191            android:permission="android.permission.BIND_JOB_SERVICE" >
+191-->[com.google.android.datatransport:transport-runtime:2.2.6] C:\Users\savel\.gradle\caches\8.11.1\transforms\f1735fc83b0874bb74bbc211fc1f867b\transformed\jetified-transport-runtime-2.2.6\AndroidManifest.xml:29:13-69
+192        </service>
+193
+194        <receiver
+194-->[com.google.android.datatransport:transport-runtime:2.2.6] C:\Users\savel\.gradle\caches\8.11.1\transforms\f1735fc83b0874bb74bbc211fc1f867b\transformed\jetified-transport-runtime-2.2.6\AndroidManifest.xml:32:9-34:40
+195            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver"
+195-->[com.google.android.datatransport:transport-runtime:2.2.6] C:\Users\savel\.gradle\caches\8.11.1\transforms\f1735fc83b0874bb74bbc211fc1f867b\transformed\jetified-transport-runtime-2.2.6\AndroidManifest.xml:33:13-132
+196            android:exported="false" />
+196-->[com.google.android.datatransport:transport-runtime:2.2.6] C:\Users\savel\.gradle\caches\8.11.1\transforms\f1735fc83b0874bb74bbc211fc1f867b\transformed\jetified-transport-runtime-2.2.6\AndroidManifest.xml:34:13-37
+197    </application>
+198
+199</manifest>

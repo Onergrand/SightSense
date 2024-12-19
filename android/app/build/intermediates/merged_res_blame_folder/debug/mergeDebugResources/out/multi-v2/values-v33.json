@@ -1,0 +1,20 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.onergrand.sightsense.app-mergeDebugResources-2:/values-v33/values-v33.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\savel\\.gradle\\caches\\8.11.1\\transforms\\815edd6fa7f6e849231347e09b2b8a23\\transformed\\jetified-core-splashscreen-1.2.0-alpha02\\res\\values-v33\\values-v33.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "5",
+                        "endColumns": "12",
+                        "endOffsets": "284"
+                    }
+                }
+            ]
+        }
+    ]
+}

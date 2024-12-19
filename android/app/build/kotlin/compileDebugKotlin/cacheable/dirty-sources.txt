@@ -1,0 +1,5 @@
+C:\TestProjects\urfu_react_native\android\app\src\main\java\com\onergrand\sightsense\MainApplication.kt
+C:\TestProjects\urfu_react_native\android\app\src\main\java\com\onergrand\sightsense\NativeLib.kt
+C:\TestProjects\urfu_react_native\android\app\src\main\java\com\onergrand\sightsense\NewLibModule.kt
+C:\TestProjects\urfu_react_native\android\app\src\main\java\com\onergrand\sightsense\NewLibPackage.kt
+C:\TestProjects\urfu_react_native\android\app\src\main\java\com\onergrand\sightsense\MainActivity.kt

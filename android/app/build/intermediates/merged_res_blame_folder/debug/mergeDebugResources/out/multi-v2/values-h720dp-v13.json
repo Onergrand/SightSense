@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.onergrand.sightsense.app-mergeDebugResources-2:/values-h720dp-v13/values-h720dp-v13.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\savel\\.gradle\\caches\\8.11.1\\transforms\\1a7c42bfd9f7687c008e1f079ce3be7b\\transformed\\appcompat-1.7.0\\res\\values-h720dp-v13\\values-h720dp-v13.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "66",
+                        "endOffsets": "117"
+                    }
+                }
+            ]
+        }
+    ]
+}

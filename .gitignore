@@ -61,4 +61,5 @@ expo-env.d.ts
 
 app/firebaseConfig.js
 
-android
+
+.env

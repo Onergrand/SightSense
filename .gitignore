@@ -47,7 +47,7 @@ yarn-debug.*
 yarn-error.*
 
 # macOS
-.DS_Store
+.DS_Storez
 *.pem
 
 # local env files
@@ -59,7 +59,11 @@ yarn-error.*
 expo-env.d.ts
 # @end expo-cli
 
-app/firebaseConfig.js
 
+android/build
+android/react-settings-plugin
+android/app/.cxx
+android/app/build/
+android/.gradle/
 
 .env

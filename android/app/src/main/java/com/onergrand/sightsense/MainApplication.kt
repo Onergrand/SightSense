@@ -21,9 +21,8 @@ class MainApplication : Application(), ReactApplication {
         this,
         object : DefaultReactNativeHost(this) {
             override fun getPackages(): List<ReactPackage> {
-                val packages = PackageList(this).packages.toMutableList() // Преобразование списка в изменяемый
-                packages.add(NewLibPackage()) // Добавляем ваш кастомный пакет
-                return packages // Возвращаем итоговый список
+                val packages = PackageList(this).packages.toMutableList()
+                return packages
             }
 
           override fun getJSMainModuleName(): String = ".expo/.virtual-metro-entry"

@@ -7,65 +7,6 @@ import createMainStyles from "../styles/main-styles";
 import { Dropdown } from "react-native-element-dropdown";
 import { Audio } from 'expo-av';
 import * as FileSystem from 'expo-file-system';
-import {NativeModules} from "react-native-web";
-
-const { NewLib } = NativeModules;
-
-const processImage = async (imageBase64, mode, contrast) => {
-    try {
-        const imageArray = Uint8Array.from(atob(imageBase64), c => c.charCodeAt(0));
-        const N = 176;
-        const M = 64;
-
-        // Преобразуем base64 в изображение
-        const grayFrame = imageArray.slice(0, N * M).reduce((acc, value, idx) => {
-            const row = Math.floor(idx / N);
-            if (!acc[row]) acc[row] = [];
-            acc[row].push(value);
-            return acc;
-        }, []);
-
-        const firstImage = grayFrame.map(row => row.slice(0, N / 2));
-        const secondImage = grayFrame.map(row => row.slice(N / 2));
-
-        if (mode === 0) {
-            const meanFrame = firstImage.map((row, i) => row.map((val, j) => (val + secondImage[i][j]) / 2));
-            const processedFrame = meanFrame.map(row => row.map(val => Math.min(255, val + contrast * (val - 128))));
-            await NewLib.stereo(processedFrame.flat());
-            return processedFrame;
-        } else if (mode === 1) {
-            const processedFirst = firstImage.map(row => row.map(val => Math.min(255, val + contrast * (val - 128))));
-            const processedSecond = secondImage.map(row => row.map(val => Math.min(255, val + contrast * (val - 128))));
-            await NewLib.binaural(processedFirst.flat(), processedSecond.flat());
-            return { first: processedFirst, second: processedSecond };
-        } else if (mode === 2) {
-            const newLeft = Array.from({ length: M }, () => Array(13).fill(0));
-            const newRight = Array.from({ length: M }, () => Array(13).fill(0));
-
-            for (let i = 0; i < M; i++) {
-                newLeft[i][0] = firstImage[i][0];
-                newRight[i][0] = secondImage[i][0];
-                let fs = 1;
-                let step = 2;
-                for (let j = 1; j < 13; j++) {
-                    newLeft[i][j] = firstImage[i].slice(fs, fs + step).reduce((a, b) => a + b, 0) / step;
-                    newRight[i][j] = secondImage[i].slice(fs, fs + step).reduce((a, b) => a + b, 0) / step;
-                    fs += step;
-                    step++;
-                }
-            }
-            const processedLeft = newLeft.map(row => row.map(val => Math.min(255, val + contrast * (val - 128))));
-            const processedRight = newRight.map(row => row.map(val => Math.min(255, val + contrast * (val - 128))));
-            await NewLib.binaural(processedLeft.flat(), processedRight.flat());
-            return { left: processedLeft, right: processedRight };
-        } else {
-            throw new Error('Invalid mode');
-        }
-    } catch (error) {
-        console.error('Error in processing image:', error);
-        throw error;
-    }
-};
 
 export default function Main({ navigation }) {
     const [mode, setMode] = useState('0');
@@ -75,7 +16,7 @@ export default function Main({ navigation }) {
     const [facing, setFacing] = useState('back');
     const [permission, requestPermission] = useCameraPermissions();
     const [isCameraActive, setIsCameraActive] = useState(false);
-    const [capturedImage, setCapturedImage] = useState(null);z
+    const [capturedImage, setCapturedImage] = useState(null);
     const cameraRef = useRef(null);
     const intervalRef = useRef(null);
 
@@ -97,31 +38,82 @@ export default function Main({ navigation }) {
 
     const playBase64Sound = async (base64Sound) => {
         try {
-            const sound = new Audio.Sound();
-            const soundUri = `data:audio/wav;base64,${base64Sound}`;
-            await sound.loadAsync({ uri: soundUri });
-            await sound.playAsync();
+            // Создаем путь для временного хранения аудиофайла
+            const fileUri = FileSystem.cacheDirectory + 'temp_sound.wav';
+
+            // Преобразуем Base64 в аудиофайл и сохраняем
+            await FileSystem.writeAsStringAsync(fileUri, base64Sound, {
+                encoding: FileSystem.EncodingType.Base64,
+            });
+
+            // Загружаем звук и воспроизводим его
+            const { sound } = await Audio.Sound.createAsync(
+                { uri: fileUri },
+                { shouldPlay: true }
+            );
+
+            // Звук будет воспроизводиться автоматически из-за `shouldPlay: true`
+            sound.setOnPlaybackStatusUpdate((status) => {
+                if (status.didJustFinish) {
+                    // Освобождаем ресурсы после завершения воспроизведения
+                    sound.unloadAsync();
+                }
+            });
         } catch (error) {
             console.error('Error playing sound:', error);
         }
     };
 
 
+    async function callSonificateImage(imageBase64, mode, contrast) {
+        try {
+            const response = await fetch('https://7a88-5-2-55-78.ngrok-free.app/remake', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ image_base64: imageBase64, mode: mode, contrast: contrast }),
+            });
+
+            if (!response.ok) {
+                console.error('Network response was not ok ' + response.statusText);
+            }
+
+            const data = await response.json();
+
+            return data;
+        } catch (error) {
+            console.error('There has been a problem with your fetch operation:', error);
+        }
+    }
+
     const startCapturing = () => {
         setIsCameraActive(true);
+        let isProcessing = false;
+
         intervalRef.current = setInterval(async () => {
-            if (cameraRef.current) {
+            if (cameraRef.current && !isProcessing) {
+                isProcessing = true;  // Устанавливаем флаг, чтобы заблокировать последующие вызовы
                 try {
-                    const photo = await cameraRef.current.takePictureAsync({ base64: true });
-                    setCapturedImage(photo.base64);
+                    console.log('');
 
-                    const processedImage = await processImage(photo.base64, parseInt(mode), parseFloat(contrast));
-                    console.log('Processed Image:', processedImage);
+                    // Захват фото
+                    const photo = await cameraRef.current.takePictureAsync({
+                        quality: 0.8,
+                        base64: true,
+                        skipProcessing: false,
+                    });
 
-                    const processedBase64 = btoa(String.fromCharCode(...processedImage.flat()));
-                    await playBase64Sound(processedBase64);
+                    console.log(mode, contrast);
+
+                    let data = await callSonificateImage(photo.base64, mode, contrast);
+
+                    await playBase64Sound(data.audio);
+                    setCapturedImage(data.image);
                 } catch (error) {
-                    console.error('Error capturing or processing image:', error);
+                    console.error('Error taking picture:', error);
+                } finally {
+                    isProcessing = false; // Сбрасываем флаг после завершения операции
                 }
             }
         }, 1000);

@@ -1,12 +1,13 @@
-import React, {useRef, useState} from 'react';
-import { View, Text, TextInput, TouchableOpacity, Image, Button } from 'react-native';
-import { CameraView, useCameraPermissions } from 'expo-camera';
-import { LinearGradient } from "expo-linear-gradient";
-import { useFontSize } from "../utils/utils";
+import React, {useEffect, useRef, useState} from 'react';
+import { View, Text, TextInput, TouchableOpacity, Image } from 'react-native';
+import { RNCamera } from 'react-native-camera';
+import Sound from 'react-native-sound';
+import RNFS from 'react-native-fs';
+import LinearGradient from 'react-native-linear-gradient';
+import { Dropdown } from 'react-native-element-dropdown';
+import {useFontSize} from "../utils/utils";
 import createMainStyles from "../styles/main-styles";
-import { Dropdown } from "react-native-element-dropdown";
-import { Audio } from 'expo-av';
-import * as FileSystem from 'expo-file-system';
+import { PermissionsAndroid, Platform } from 'react-native';
 
 export default function Main({ navigation }) {
     const [mode, setMode] = useState('0');
@@ -14,7 +15,6 @@ export default function Main({ navigation }) {
     const { fontSize, setFontSize } = useFontSize();
 
     const [facing, setFacing] = useState('back');
-    const [permission, requestPermission] = useCameraPermissions();
     const [isCameraActive, setIsCameraActive] = useState(false);
     const [capturedImage, setCapturedImage] = useState(null);
     const cameraRef = useRef(null);
@@ -23,51 +23,63 @@ export default function Main({ navigation }) {
     const styles = createMainStyles(fontSize);
 
 
-    if (!permission) {
-        return <View />;
-    }
+    const requestCameraPermission = async () => {
+        if (Platform.OS === 'android') {
+            try {
+                const granted = await PermissionsAndroid.request(
+                    PermissionsAndroid.PERMISSIONS.CAMERA,
+                    {
+                        title: "Camera Permission",
+                        message: "This app needs access to your camera to take pictures.",
+                        buttonNeutral: "Ask Me Later",
+                        buttonNegative: "Cancel",
+                        buttonPositive: "OK"
+                    }
+                );
+                return granted === PermissionsAndroid.RESULTS.GRANTED;
+            } catch (err) {
+                console.warn(err);
+                return false;
+            }
+        } else {
+            return true;
+        }
+    };
 
-    if (!permission.granted) {
-        return (
-            <View style={styles.container}>
-                <Text style={styles.message}>We need your permission to show the camera</Text>
-                <Button onPress={requestPermission} title="Grant Permission" />
-            </View>
-        );
-    }
+    useEffect(() => {
+        (async () => {
+            const hasPermission = await requestCameraPermission();
+            if (!hasPermission) {
+                console.error('Camera permission denied');
+            }
+        })();
+    }, []);
 
     const playBase64Sound = async (base64Sound) => {
         try {
-            // Создаем путь для временного хранения аудиофайла
-            const fileUri = FileSystem.cacheDirectory + 'temp_sound.wav';
+            const fileUri = `${RNFS.CachesDirectoryPath}/temp_sound.wav`;
 
-            // Преобразуем Base64 в аудиофайл и сохраняем
-            await FileSystem.writeAsStringAsync(fileUri, base64Sound, {
-                encoding: FileSystem.EncodingType.Base64,
-            });
+            await RNFS.writeFile(fileUri, base64Sound, 'base64');
 
-            // Загружаем звук и воспроизводим его
-            const { sound } = await Audio.Sound.createAsync(
-                { uri: fileUri },
-                { shouldPlay: true }
-            );
-
-            // Звук будет воспроизводиться автоматически из-за `shouldPlay: true`
-            sound.setOnPlaybackStatusUpdate((status) => {
-                if (status.didJustFinish) {
-                    // Освобождаем ресурсы после завершения воспроизведения
-                    sound.unloadAsync();
+            const sound = new Sound(fileUri, Sound.MAIN_BUNDLE, (error) => {
+                if (error) {
+                    console.error('Ошибка загрузки звука:', error);
+                    return;
                 }
+
+                sound.play((success) => {
+                    sound.release();
+                });
             });
         } catch (error) {
-            console.error('Error playing sound:', error);
+            console.error('Ошибка при воспроизведении звука:', error);
         }
     };
 
 
     async function callSonificateImage(imageBase64, mode, contrast) {
         try {
-            const response = await fetch('https://7a88-5-2-55-78.ngrok-free.app/remake', {
+            const response = await fetch('https://sonificationserver-production.up.railway.app/remake', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -89,6 +101,8 @@ export default function Main({ navigation }) {
 
     const startCapturing = () => {
         setIsCameraActive(true);
+        setIsBlocked(true);
+        isCancelledRef.current = false;
         let isProcessing = false;
 
         intervalRef.current = setInterval(async () => {
@@ -99,7 +113,7 @@ export default function Main({ navigation }) {
 
                     // Захват фото
                     const photo = await cameraRef.current.takePictureAsync({
-                        quality: 0.8,
+                        quality: 0.3,
                         base64: true,
                         skipProcessing: false,
                     });
@@ -110,8 +124,6 @@ export default function Main({ navigation }) {
 
                     await playBase64Sound(data.audio);
                     setCapturedImage(data.image);
-                } catch (error) {
-                    console.error('Error taking picture:', error);
                 } finally {
                     isProcessing = false; // Сбрасываем флаг после завершения операции
                 }
@@ -119,11 +131,21 @@ export default function Main({ navigation }) {
         }, 1000);
     };
 
-
     const stopCapturing = () => {
-        setIsCameraActive(false);
-        clearInterval(intervalRef.current);
+        if (isCameraActive) {
+            setIsCameraActive(false);
+
+            clearInterval(intervalRef.current);
+
+            setCapturedImage(null);
+
+            if (cameraRef.current?.pausePreview) {
+                console.log("Останавливаю предварительный просмотр...");
+                cameraRef.current.pausePreview();
+            }
+        }
     };
+
 
     const decreaseFontSize = () => {
         setFontSize(prevFontSize => ({
@@ -143,6 +165,9 @@ export default function Main({ navigation }) {
         }));
     };
 
+    useEffect(() => {
+        return () => clearInterval(intervalRef.current); // Очищаем интервал при размонтировании
+    }, []);
 
     return (
         <View style={styles.container}>
@@ -159,15 +184,30 @@ export default function Main({ navigation }) {
 
                 </View>
 
-                {isCameraActive && (<Image source={{ uri: `data:image/jpeg;base64,<${capturedImage}>` }} style={styles.cameraFill} />)}
-                {isCameraActive && (
-                    <CameraView ref={cameraRef} mute={true} style={styles.camera} facing={facing} onCameraReady={() => console.log('Camera is ready')}>
-                    </CameraView>
-                )}
-                {!isCameraActive && (
+                {isCameraActive && capturedImage ? (
+                    <Image
+                        source={{ uri: `data:image/jpeg;base64,${capturedImage}` }}
+                        style={styles.cameraFill}
+                    />
+                ) : (
                     <View style={styles.cameraFill}>
                         <Text style={styles.cameraFillText}>Нет изображения с камеры</Text>
                     </View>
+                )}
+
+                {isCameraActive && (
+                    <RNCamera
+                        ref={cameraRef}
+                        style={{
+                            height: 1,
+                            width: 1,
+                            opacity: 0
+                        }}
+                        type={facing === 'back' ? RNCamera.Constants.Type.back : RNCamera.Constants.Type.front}
+                        captureAudio={false}
+                        onCameraReady={() => console.log('Camera is ready')}
+                        onMountError={error => console.error('Camera mount error:', error)}
+                    />
                 )}
             </LinearGradient>
 
@@ -177,6 +217,7 @@ export default function Main({ navigation }) {
                 placeholderStyle={styles.placeholder}
                 selectedTextStyle={styles.placeholder}
                 inputSearchStyle={styles.placeholder}
+                itemTextStyle={{color: "#000"}}
                 data={[
                     { label: 'Основная', value: 'back' },
                     { label: 'Фронтальная', value: 'front' },
@@ -194,6 +235,7 @@ export default function Main({ navigation }) {
                 placeholderStyle={styles.placeholder}
                 selectedTextStyle={styles.placeholder}
                 inputSearchStyle={styles.placeholder}
+                itemTextStyle={{color: "#000"}}
                 data={[
                     { label: 'Режим 1', value: '0' },
                     { label: 'Режим 2', value: '1' },
@@ -217,21 +259,29 @@ export default function Main({ navigation }) {
             />
 
             <View style={styles.cameraActions}>
-                <TouchableOpacity onPress={stopCapturing} style={styles.cameraActionButton}>
+                <TouchableOpacity
+                    onPress={stopCapturing}
+                    style={styles.cameraActionButton}>
                     <Text style={styles.cameraActionButtonText}>стоп</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={startCapturing} style={styles.cameraActionButton}>
+                <TouchableOpacity
+                    onPress={startCapturing}
+                    style={styles.cameraActionButton}>
                     <Text style={styles.cameraActionButtonText}>старт</Text>
                 </TouchableOpacity>
             </View>
 
 
             <View style={styles.bottomMenu}>
-                <TouchableOpacity style={styles.bottomMenuButton}>
-                    <Image source={require('../../assets/images/home-icon.png')} style={styles.icon} />
+                <TouchableOpacity style={styles.bottomMenuButton} aria-valuetext={"Главная"}>
+                    <Image source={require('../../assets/images/home-icon.png')} style={styles.icon}
+                           alt={"Главная"}/>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('Profile')} style={styles.bottomMenuButton}>
-                    <Image source={require('../../assets/images/profile-icon.png')} style={styles.icon} />
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('Profile')}
+                    style={styles.bottomMenuButton} aria-valuetext={"Профиль"}>
+                    <Image source={require('../../assets/images/profile-icon.png')} style={styles.icon}
+                           alt={"Профиль"}/>
                 </TouchableOpacity>
             </View>
         </View>

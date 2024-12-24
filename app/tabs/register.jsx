@@ -1,17 +1,22 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import {View, Text, TextInput, TouchableOpacity, Alert} from 'react-native';
 
 import createRegisterStyles from "../styles/register-styles";
-import {LinearGradient} from "expo-linear-gradient";
+import {LinearGradient} from "react-native-linear-gradient";
 import {useFontSize} from "../utils/utils";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
 import {FIREBASE_AUTH} from "../firebaseConfig";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 export default function Register({ navigation }) {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [email, setEmail] = useState('');
+
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+    const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
+
     const { fontSize, setFontSize } = useFontSize();
     const auth = FIREBASE_AUTH;
 
@@ -19,7 +24,7 @@ export default function Register({ navigation }) {
 
     const handleRegister = async () => {
         if (password !== confirmPassword) {
-            alert('Ошибка', 'Пароли не совпадают.');
+            Alert.alert('Ошибка', 'Пароли не совпадают.');
             return;
         }
 
@@ -28,13 +33,13 @@ export default function Register({ navigation }) {
             navigation.navigate('RegisterData');
         } catch (error) {
             if (error.code === 'auth/email-already-in-use') {
-                alert('Ошибка', 'Этот email уже зарегистрирован.');
+                Alert.alert('Ошибка', 'Этот email уже зарегистрирован.');
             } else if (error.code === 'auth/invalid-email') {
-                alert('Ошибка', 'Неверный формат электронной почты.');
+                Alert.alert('Ошибка', 'Неверный формат электронной почты.');
             } else if (error.code === 'auth/weak-password') {
-                alert('Ошибка', 'Пароль должен содержать не менее 6 символов.');
+                Alert.alert('Ошибка', 'Пароль должен содержать не менее 6 символов.');
             } else {
-                alert('Ошибка', error.message);
+                Alert.alert('Ошибка', error);
             }
         }
     };
@@ -86,22 +91,49 @@ export default function Register({ navigation }) {
                     onChangeText={setEmail}
                     placeholderTextColor={'black'}
                 />
-                <TextInput
-                    style={styles.input}
-                    placeholder="введите пароль"
-                    value={password}
-                    onChangeText={setPassword}
-                    placeholderTextColor={'black'}
-                    secureTextEntry
-                />
-                <TextInput
-                    style={styles.input}
-                    placeholder="повторите пароль"
-                    value={confirmPassword}
-                    onChangeText={setConfirmPassword}
-                    placeholderTextColor={'black'}
-                    secureTextEntry
-                />
+
+                <View style={styles.input}>
+                    <TextInput
+                        style={styles.inputPass}
+                        placeholder="введите пароль"
+                        value={password}
+                        onChangeText={setPassword}
+                        placeholderTextColor="black"
+                        secureTextEntry={!isPasswordVisible}
+                    />
+                    <TouchableOpacity
+                        onPress={() => setIsPasswordVisible(!isPasswordVisible)}
+                        style={styles.iconButton}
+                    >
+                        <Ionicons
+                            name={isPasswordVisible ? 'eye-off' : 'eye'}
+                            size={36}
+                            color="gray"
+                        />
+                    </TouchableOpacity>
+                </View>
+
+                <View style={styles.input}>
+                    <TextInput
+                        style={styles.inputPass}
+                        placeholder="повторите пароль"
+                        value={confirmPassword}
+                        onChangeText={setConfirmPassword}
+                        placeholderTextColor="black"
+                        secureTextEntry={!isConfirmPasswordVisible}
+                    />
+                    <TouchableOpacity
+                        onPress={() => setIsConfirmPasswordVisible(!isConfirmPasswordVisible)}
+                        style={styles.iconButton}
+                    >
+                        <Ionicons
+                            name={isConfirmPasswordVisible ? 'eye-off' : 'eye'}
+                            size={36}
+                            color="gray"
+                        />
+                    </TouchableOpacity>
+                </View>
+
                 <TouchableOpacity onPress={() => handleRegister()} style={styles.registerButton}>
                     <Text style={styles.registerButtonText}>создать аккаунт</Text>
                 </TouchableOpacity>

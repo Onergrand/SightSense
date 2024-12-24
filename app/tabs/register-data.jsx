@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 
-import {LinearGradient} from "expo-linear-gradient";
-import {useFontSize} from "../utils/utils";
-import {Dropdown} from "react-native-element-dropdown";
+import { LinearGradient } from "react-native-linear-gradient";
+import { useFontSize } from "../utils/utils";
+import { Dropdown } from "react-native-element-dropdown";
 import createRegisterDataStyles from "../styles/register-data-styles";
-import {collection, doc, setDoc} from "firebase/firestore";
-import {FIREBASE_AUTH, FIREBASE_DB} from "../firebaseConfig";
+import { doc, setDoc } from "firebase/firestore";
+import { FIREBASE_AUTH, FIREBASE_DB } from "../firebaseConfig";
 
 
 export default function RegisterData({ navigation }) {
@@ -32,7 +32,7 @@ export default function RegisterData({ navigation }) {
         } catch (e) {
             console.error("Error adding document: ", e);
         }
-    }
+    };
 
     const decreaseFontSize = () => {
         setFontSize(prevFontSize => ({
@@ -92,7 +92,6 @@ export default function RegisterData({ navigation }) {
                     placeholder="дата рождения"
                     textContentType={"birthdate"}
                     value={dateOfBirth}
-                    onChangeText={(date) => setDateOfBirth(date)}
                     placeholderTextColor={'black'}
                     keyboardType="numeric"
                     maxLength={10}
@@ -104,14 +103,15 @@ export default function RegisterData({ navigation }) {
                     selectedTextStyle={styles.placeholder}
                     inputSearchStyle={styles.placeholder}
                     data={[
-                        {label: 'мужской', value: 'male'},
-                        {label: 'женский', value: 'female'},
+                        { label: 'мужской', value: 'male' },
+                        { label: 'женский', value: 'female' },
                     ]}
                     labelField="label"
                     valueField="value"
                     placeholder="пол"
                     value={gender}
                     onChange={item => setGender(item.value)}
+                    itemTextStyle={{ color: "#000" }}
                 />
 
                 <TouchableOpacity onPress={() => handleRegisterData()} style={styles.saveDataButton}>

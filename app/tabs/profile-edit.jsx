@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {View, Text, TextInput, TouchableOpacity, Image} from 'react-native';
 
-import {LinearGradient} from "expo-linear-gradient";
+import {LinearGradient} from "react-native-linear-gradient";
 import {useFontSize} from "../utils/utils";
 import {Dropdown} from "react-native-element-dropdown";
 import createProfileEditStyles from "../styles/profile-edit-styles";
@@ -140,6 +140,7 @@ export default function ProfileEdit({ navigation }) {
                     placeholder="пол"
                     value={gender}
                     onChange={item => setGender(item.value)}
+                    itemTextStyle={{color: "#000"}}
                 />
 
                 <TouchableOpacity style={styles.changeDataButton} onPress={() => handleUpdateUserData()}>

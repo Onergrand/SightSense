@@ -53,6 +53,7 @@ const createMainStyles = (fontSize) => StyleSheet.create({
         fontSize: fontSize.buttonResize || 36,
         fontWeight: 'bold',
         fontFamily: 'MontserratBold',
+        color: 'black',
     },
     cameraFill: {
         width: '100%',

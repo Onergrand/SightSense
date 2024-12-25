@@ -1,6 +1,6 @@
 import {StyleSheet} from "react-native";
 
-const createRegisterStyles = (fontSize) => StyleSheet.create({
+const createRegisterDataStyles = (fontSize) => StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'flex-start',
@@ -43,6 +43,7 @@ const createRegisterStyles = (fontSize) => StyleSheet.create({
         fontSize: fontSize.buttonResize || 36,
         fontWeight: 'bold',
         fontFamily: 'MontserratBold',
+        color: 'black',
     },
     buttonText: {
         fontSize: fontSize.button || 18,
@@ -53,7 +54,7 @@ const createRegisterStyles = (fontSize) => StyleSheet.create({
         fontSize: fontSize.title || 48,
         fontWeight: 'bold',
         textAlign: 'center',
-
+        color: 'black',
         marginTop: '5%',
         marginBottom: '10%',
     },
@@ -71,16 +72,22 @@ const createRegisterStyles = (fontSize) => StyleSheet.create({
         fontSize: fontSize.main || 24,
         color: '#000',
     },
-    registerButton: {
-        width: '40%',
-        height: '10%',
+    placeholder: {
+        fontFamily: 'MontserratSemiBold',
+        fontWeight: 'semibold',
+        fontSize: fontSize.main || 24,
+        color: '#000',
+    },
+    saveDataButton: {
+        width: '50%',
+        height: '8%',
         color: 'white',
         fontSize: fontSize.main || 24,
 
         backgroundColor: '#7B00E0',
         borderRadius: 20,
     },
-    registerButtonText: {
+    saveDataButtonText: {
         fontFamily: 'MontserratBold',
         fontWeight: 'bold',
         fontSize: fontSize.main || 24,
@@ -89,31 +96,8 @@ const createRegisterStyles = (fontSize) => StyleSheet.create({
 
         textAlign: 'center',
         alignSelf: 'center',
-        paddingTop: '3%',
+        paddingTop: '6%',
     },
-    linkText: {
-        fontFamily: 'MontserratMedium',
-        fontWeight: 'medium',
-        fontSize: fontSize.main || 24,
-
-        marginTop: '10%',
-    },
-    loginButton: {
-        width: '80%',
-        height: '8%',
-
-        marginTop: '5%',
-    },
-    loginButtonText: {
-        textAlign: 'center',
-
-        fontFamily: 'MontserratBold',
-        fontWeight: 'bold',
-        fontSize: fontSize.main || 24,
-        color: 'black',
-
-        textDecorationLine: 'underline',
-    }
 });
 
-export default createRegisterStyles;
+export default createRegisterDataStyles;

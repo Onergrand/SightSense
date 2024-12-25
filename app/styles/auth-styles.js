@@ -1,6 +1,6 @@
 import {StyleSheet} from "react-native";
 
-const createRegisterDataStyles = (fontSize) => StyleSheet.create({
+const createAuthStyles = (fontSize) => StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'flex-start',
@@ -43,6 +43,7 @@ const createRegisterDataStyles = (fontSize) => StyleSheet.create({
         fontSize: fontSize.buttonResize || 36,
         fontWeight: 'bold',
         fontFamily: 'MontserratBold',
+        color: 'black',
     },
     buttonText: {
         fontSize: fontSize.button || 18,
@@ -56,6 +57,8 @@ const createRegisterDataStyles = (fontSize) => StyleSheet.create({
 
         marginTop: '5%',
         marginBottom: '10%',
+
+        color: '#000',
     },
     input: {
         width: '80%',
@@ -71,14 +74,8 @@ const createRegisterDataStyles = (fontSize) => StyleSheet.create({
         fontSize: fontSize.main || 24,
         color: '#000',
     },
-    placeholder: {
-        fontFamily: 'MontserratSemiBold',
-        fontWeight: 'semibold',
-        fontSize: fontSize.main || 24,
-        color: '#000',
-    },
-    saveDataButton: {
-        width: '50%',
+    loginButton: {
+        width: '40%',
         height: '8%',
         color: 'white',
         fontSize: fontSize.main || 24,
@@ -86,7 +83,7 @@ const createRegisterDataStyles = (fontSize) => StyleSheet.create({
         backgroundColor: '#7B00E0',
         borderRadius: 20,
     },
-    saveDataButtonText: {
+    loginButtonText: {
         fontFamily: 'MontserratBold',
         fontWeight: 'bold',
         fontSize: fontSize.main || 24,
@@ -97,6 +94,29 @@ const createRegisterDataStyles = (fontSize) => StyleSheet.create({
         alignSelf: 'center',
         paddingTop: '6%',
     },
+    linkText: {
+        fontFamily: 'MontserratMedium',
+        fontWeight: 'medium',
+        fontSize: fontSize.main || 24,
+        color: 'black',
+        marginTop: '10%',
+    },
+    registerButton: {
+        width: '80%',
+        height: '8%',
+
+        marginTop: '5%',
+    },
+    registerButtonText: {
+        textAlign: 'center',
+
+        fontFamily: 'MontserratBold',
+        fontWeight: 'bold',
+        fontSize: fontSize.main || 24,
+        color: 'black',
+
+        textDecorationLine: 'underline',
+    }
 });
 
-export default createRegisterDataStyles;
+export default createAuthStyles;

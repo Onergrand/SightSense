@@ -1,6 +1,6 @@
 import {StyleSheet} from "react-native";
 
-const createAuthStyles = (fontSize) => StyleSheet.create({
+const createRegisterStyles = (fontSize) => StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'flex-start',
@@ -43,6 +43,7 @@ const createAuthStyles = (fontSize) => StyleSheet.create({
         fontSize: fontSize.buttonResize || 36,
         fontWeight: 'bold',
         fontFamily: 'MontserratBold',
+        color: 'black',
     },
     buttonText: {
         fontSize: fontSize.button || 18,
@@ -53,34 +54,49 @@ const createAuthStyles = (fontSize) => StyleSheet.create({
         fontSize: fontSize.title || 48,
         fontWeight: 'bold',
         textAlign: 'center',
-
+        color: 'black',
         marginTop: '5%',
         marginBottom: '10%',
     },
     input: {
         width: '80%',
-        padding: 10,
+        paddingLeft: 10,
         marginBottom: '10%',
 
         borderWidth: 2,
         borderColor: '#000',
         borderRadius: 20,
 
+        display: 'flex',
+        flexDirection: 'row',
+
         fontFamily: 'MontserratSemiBold',
         fontWeight: 'semibold',
         fontSize: fontSize.main || 24,
         color: '#000',
     },
-    loginButton: {
+    inputPass: {
+        width: '85%',
+
+        fontFamily: 'MontserratSemiBold',
+        fontWeight: 'semibold',
+        fontSize: fontSize.main || 24,
+        color: '#000',
+    },
+    iconButton: {
+        alignSelf: 'center',
+        width: '15%',
+    },
+    registerButton: {
         width: '40%',
-        height: '8%',
+        height: '10%',
         color: 'white',
         fontSize: fontSize.main || 24,
 
         backgroundColor: '#7B00E0',
         borderRadius: 20,
     },
-    loginButtonText: {
+    registerButtonText: {
         fontFamily: 'MontserratBold',
         fontWeight: 'bold',
         fontSize: fontSize.main || 24,
@@ -89,22 +105,22 @@ const createAuthStyles = (fontSize) => StyleSheet.create({
 
         textAlign: 'center',
         alignSelf: 'center',
-        paddingTop: '6%',
+        paddingTop: '3%',
     },
     linkText: {
         fontFamily: 'MontserratMedium',
         fontWeight: 'medium',
         fontSize: fontSize.main || 24,
-
+        color: 'black',
         marginTop: '10%',
     },
-    registerButton: {
+    loginButton: {
         width: '80%',
         height: '8%',
 
         marginTop: '5%',
     },
-    registerButtonText: {
+    loginButtonText: {
         textAlign: 'center',
 
         fontFamily: 'MontserratBold',
@@ -116,4 +132,4 @@ const createAuthStyles = (fontSize) => StyleSheet.create({
     }
 });
 
-export default createAuthStyles;
+export default createRegisterStyles;

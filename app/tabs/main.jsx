@@ -19,6 +19,8 @@ export default function Main({ navigation }) {
     const [capturedImage, setCapturedImage] = useState(null);
     const cameraRef = useRef(null);
     const intervalRef = useRef(null);
+    const isCancelledRef = useRef(false);
+    const [isBlocked, setIsBlocked] = useState(false);
 
     const styles = createMainStyles(fontSize);
 
@@ -57,6 +59,10 @@ export default function Main({ navigation }) {
 
     const playBase64Sound = async (base64Sound) => {
         try {
+            if (isCancelledRef.current) {
+                return null; // Прерываем выполнение, если процесс остановлен
+            }
+
             const fileUri = `${RNFS.CachesDirectoryPath}/temp_sound.wav`;
 
             await RNFS.writeFile(fileUri, base64Sound, 'base64');
@@ -67,6 +73,7 @@ export default function Main({ navigation }) {
                     return;
                 }
 
+                // Воспроизводим звук
                 sound.play((success) => {
                     sound.release();
                 });
@@ -89,6 +96,10 @@ export default function Main({ navigation }) {
 
             if (!response.ok) {
                 console.error('Network response was not ok ' + response.statusText);
+            }
+
+            if (isCancelledRef.current) {
+                return null; // Прерываем выполнение, если процесс остановлен
             }
 
             const data = await response.json();
@@ -134,6 +145,8 @@ export default function Main({ navigation }) {
     const stopCapturing = () => {
         if (isCameraActive) {
             setIsCameraActive(false);
+            setIsBlocked(false);
+            isCancelledRef.current = true;
 
             clearInterval(intervalRef.current);
 
@@ -227,6 +240,7 @@ export default function Main({ navigation }) {
                 placeholder="Основная камера"
                 value={facing}
                 onChange={item => setFacing(item.value)}
+                disable={isBlocked}
             />
 
             <Text style={styles.pointName}>Выберите режим</Text>
@@ -246,6 +260,7 @@ export default function Main({ navigation }) {
                 placeholder="Режим ..."
                 value={mode}
                 onChange={item => setMode(item.value)}
+                disable={isBlocked}
             />
 
             <Text style={styles.pointName}>Выберите контраст</Text>
@@ -256,17 +271,21 @@ export default function Main({ navigation }) {
                 value={contrast}
                 onChangeText={setContrast}
                 placeholderTextColor={'black'}
+                editable={!isBlocked}
+                selectTextOnFocus={!isBlocked}
             />
 
             <View style={styles.cameraActions}>
                 <TouchableOpacity
                     onPress={stopCapturing}
-                    style={styles.cameraActionButton}>
+                    style={[styles.cameraActionButton, !isBlocked && { backgroundColor: "#3B0050" }]}
+                    disabled={!isBlocked} >
                     <Text style={styles.cameraActionButtonText}>стоп</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={startCapturing}
-                    style={styles.cameraActionButton}>
+                    style={[styles.cameraActionButton, isBlocked && { backgroundColor: "#3B0050" }]}
+                    disabled={isBlocked} >
                     <Text style={styles.cameraActionButtonText}>старт</Text>
                 </TouchableOpacity>
             </View>
@@ -275,13 +294,13 @@ export default function Main({ navigation }) {
             <View style={styles.bottomMenu}>
                 <TouchableOpacity style={styles.bottomMenuButton} aria-valuetext={"Главная"}>
                     <Image source={require('../../assets/images/home-icon.png')} style={styles.icon}
-                           alt={"Главная"}/>
+                    alt={"Главная"}/>
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={() => navigation.navigate('Profile')}
                     style={styles.bottomMenuButton} aria-valuetext={"Профиль"}>
                     <Image source={require('../../assets/images/profile-icon.png')} style={styles.icon}
-                           alt={"Профиль"}/>
+                    alt={"Профиль"}/>
                 </TouchableOpacity>
             </View>
         </View>

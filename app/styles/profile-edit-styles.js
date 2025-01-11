@@ -53,13 +53,14 @@ const createProfileEditStyles = (fontSize) => StyleSheet.create({
         fontSize: fontSize.buttonResize || 36,
         fontWeight: 'bold',
         fontFamily: 'MontserratBold',
+        color: 'black',
     },
     title: {
         fontFamily: 'MontserratBold',
         fontSize: fontSize.title || 48,
         fontWeight: 'bold',
         textAlign: 'center',
-
+        color: 'black',
         marginTop: '5%',
         marginBottom: '2%',
     },

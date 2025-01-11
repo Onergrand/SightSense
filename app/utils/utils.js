@@ -12,5 +12,4 @@ const useFontSize = () => {
     return { fontSize, setFontSize };
 };
 
-
 export { useFontSize };

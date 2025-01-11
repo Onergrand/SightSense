@@ -3,7 +3,7 @@ import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 
 import createAuthStyles from "../styles/auth-styles";
 import {useFontSize} from "../utils/utils";
-import {LinearGradient} from "expo-linear-gradient";
+import {LinearGradient} from "react-native-linear-gradient";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import {FIREBASE_AUTH} from "../firebaseConfig";
 

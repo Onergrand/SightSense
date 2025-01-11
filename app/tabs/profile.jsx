@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Image } from 'react-native';
-import { LinearGradient } from "expo-linear-gradient";
+import { LinearGradient } from "react-native-linear-gradient";
 import { useFontSize } from "../utils/utils";
 import { Dropdown } from "react-native-element-dropdown";
 import createProfileStyles from "../styles/profile-styles";
@@ -96,6 +96,8 @@ export default function Profile({ navigation }) {
                     value={name}
                     onChangeText={setName}
                     placeholderTextColor={'black'}
+                    editable={false}
+                    selectTextOnFocus={false}
                 />
 
                 <Text style={styles.pointName}>Фамилия</Text>
@@ -105,6 +107,8 @@ export default function Profile({ navigation }) {
                     value={surname}
                     onChangeText={setSurname}
                     placeholderTextColor={'black'}
+                    editable={false}
+                    selectTextOnFocus={false}
                 />
 
                 <Text style={styles.pointName}>Дата рождения</Text>
@@ -116,6 +120,8 @@ export default function Profile({ navigation }) {
                     placeholderTextColor={'black'}
                     keyboardType="numeric"
                     maxLength={10}
+                    editable={false}
+                    selectTextOnFocus={false}
                 />
 
                 <Text style={styles.pointName}>Пол</Text>
@@ -133,6 +139,7 @@ export default function Profile({ navigation }) {
                     placeholder="пол"
                     value={gender}
                     onChange={item => setGender(item.value)}
+                    disable={true}
                 />
 
                 <TouchableOpacity onPress={() => navigation.navigate('ProfileEdit')} style={styles.changeDataButton}>

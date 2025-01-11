@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 
-import {LinearGradient} from "expo-linear-gradient";
-import {useFontSize} from "../utils/utils";
-import {Dropdown} from "react-native-element-dropdown";
+import { LinearGradient } from "react-native-linear-gradient";
+import { useFontSize } from "../utils/utils";
+import { Dropdown } from "react-native-element-dropdown";
 import createRegisterDataStyles from "../styles/register-data-styles";
-import {collection, doc, setDoc} from "firebase/firestore";
-import {FIREBASE_AUTH, FIREBASE_DB} from "../firebaseConfig";
+import { doc, setDoc } from "firebase/firestore";
+import { FIREBASE_AUTH, FIREBASE_DB } from "../firebaseConfig";
 
 
 export default function RegisterData({ navigation }) {
@@ -14,6 +14,7 @@ export default function RegisterData({ navigation }) {
     const [surname, setSurname] = useState('');
     const [dateOfBirth, setDateOfBirth] = useState('');
     const [gender, setGender] = useState('unknown');
+    const [isButtonDisabled, setIsButtonDisabled] = useState(true);
     const { fontSize, setFontSize } = useFontSize();
 
     const styles = createRegisterDataStyles(fontSize);
@@ -32,7 +33,7 @@ export default function RegisterData({ navigation }) {
         } catch (e) {
             console.error("Error adding document: ", e);
         }
-    }
+    };
 
     const decreaseFontSize = () => {
         setFontSize(prevFontSize => ({
@@ -51,6 +52,51 @@ export default function RegisterData({ navigation }) {
             buttonResize: prevFontSize.buttonResize + 2,
         }));
     };
+
+    const formatDateOfBirth = (text) => {
+        let cleanText = text.replace(/\D/g, ''); // Удалить все символы, кроме цифр
+        if (cleanText.length > 2) {
+            cleanText = cleanText.slice(0, 2) + '.' + cleanText.slice(2);
+        }
+        if (cleanText.length > 5) {
+            cleanText = cleanText.slice(0, 5) + '.' + cleanText.slice(5, 9);
+        }
+        return cleanText;
+    };
+
+    const isDateValid = (dateString) => {
+        const parts = dateString.split('.'); // Разделяем по точкам
+        if (parts.length !== 3) return false;
+
+        const [day, month, year] = parts.map(part => parseInt(part, 10));
+        const today = new Date();
+
+        if (year < 1900 || year > today.getFullYear()) return false;
+        if (month < 1 || month > 12) return false;
+        if (day < 1 || day > new Date(year, month, 0).getDate()) return false;
+
+        const inputDate = new Date(year, month - 1, day);
+        return inputDate <= today;
+    };
+
+    const handleDateOfBirthChange = (text) => {
+        const formattedText = formatDateOfBirth(text);
+        setDateOfBirth(formattedText);
+    };
+
+    useEffect(() => {
+        if (
+            name.trim() &&
+            surname.trim() &&
+            dateOfBirth.trim() &&
+            isDateValid(dateOfBirth) &&
+            gender !== 'unknown'
+        ) {
+            setIsButtonDisabled(false);
+        } else {
+            setIsButtonDisabled(true);
+        }
+    }, [name, surname, dateOfBirth, gender]);
 
     return (
         <View style={styles.container}>
@@ -92,7 +138,7 @@ export default function RegisterData({ navigation }) {
                     placeholder="дата рождения"
                     textContentType={"birthdate"}
                     value={dateOfBirth}
-                    onChangeText={(date) => setDateOfBirth(date)}
+                    onChangeText={handleDateOfBirthChange}
                     placeholderTextColor={'black'}
                     keyboardType="numeric"
                     maxLength={10}
@@ -104,17 +150,25 @@ export default function RegisterData({ navigation }) {
                     selectedTextStyle={styles.placeholder}
                     inputSearchStyle={styles.placeholder}
                     data={[
-                        {label: 'мужской', value: 'male'},
-                        {label: 'женский', value: 'female'},
+                        { label: 'мужской', value: 'male' },
+                        { label: 'женский', value: 'female' },
                     ]}
                     labelField="label"
                     valueField="value"
                     placeholder="пол"
                     value={gender}
                     onChange={item => setGender(item.value)}
+                    itemTextStyle={{ color: "#000" }}
                 />
 
-                <TouchableOpacity onPress={() => handleRegisterData()} style={styles.saveDataButton}>
+                <TouchableOpacity
+                    onPress={() => handleRegisterData()}
+                    style={[
+                        styles.saveDataButton,
+                        isButtonDisabled && { backgroundColor: 'gray' },
+                    ]}
+                    disabled={isButtonDisabled}
+                >
                     <Text style={styles.saveDataButtonText}>продолжить</Text>
                 </TouchableOpacity>
             </View>
